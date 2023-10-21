@@ -234,10 +234,6 @@ def netcatListener():
 
         if proxychains.lower() in ["y", "n"]:
             if proxychains.lower() == "y":
-                while True:
-                    install_proxychains = input("\nInstall Proxychains? Y/N: ")
-                    if install_proxychains.lower() == "y":
-                        os.system()
                 os.system(f"sudo proxychains nc -lvp {port}")
             elif proxychains.lower() == "n":
                 command = f"sudo nc -lvp {port}"
@@ -326,8 +322,16 @@ def ipGeolocation():
         result = response.content.decode()
         result = result.split("(")[1].strip(")")
         result = json.loads(result)
-        print("")
-        print(result)
+
+        print("\nGeolocation Information:")
+        print(f"Country Code: {result['country_code']}")
+        print(f"Country Name: {result['country_name']}")
+        print(f"City: {result['city']}")
+        print(f"Postal Code: {result['postal']}")
+        print(f"Latitude: {result['latitude']}")
+        print(f"Longitude: {result['longitude']}")
+        print(f"IPv4 Address: {result['IPv4']}")
+        print(f"State: {result['state']}")
 
         back = input("\nBack Y/N: ")
 
