@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Verifica ed installazione di Python3 e pip
+if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
+    echo "Installing Python3 and pip..."
+    sudo apt-get install python3 python3-pip -y
+fi
+
 # Elenco delle librerie Python richieste
 required_libraries=("os" "scapy" "requests" "json" "colorama")
 
@@ -26,11 +32,13 @@ fi
 
 # Verifica ed installazione di msfconsole e msfvenom
 if ! command -v msfconsole >/dev/null || ! command -v msfvenom >/dev/null; then
+    # Importa la chiave pubblica di Metasploit
+    sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys CDFB5FA52007B954
+
     # Aggiorna la cache dei repository
     sudo apt-get update
 
     # Installa Metasploit Framework
-    sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-keys ED444FF07D8D0BF6
     echo "deb http://apt.metasploit.com/ lucid main" | sudo tee /etc/apt/sources.list.d/metasploit-framework.list
     sudo apt-get update
     sudo apt-get install metasploit-framework -y
