@@ -67,7 +67,7 @@ opzioni_menu = f"""
  ║ [4] Dos Attack                   ║
  ║ [5] IP Geolocation               ║
  ║                                  ║
- ║ [{Fore.BLUE}6{Style.RESET_ALL}] Update                       ║
+ ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
  ╚══════════════════════════════════╝
  ╔══════════════════════════════════╗
  ║ [{Fore.RED}0{Style.RESET_ALL}] Exit                         ║
