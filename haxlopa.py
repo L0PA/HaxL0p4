@@ -65,7 +65,8 @@ opzioni_menu = f"""
  ║ [2] Network                      ║
  ║ [3] Track Location               ║
  ║ [4] Dos Attack                   ║
- ║ [5] IP Geolocation               ║ 
+ ║ [5] IP Geolocation               ║
+ ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                      ║
  ╚══════════════════════════════════╝
  ╔══════════════════════════════════╗
  ║ [{Fore.RED}0{Style.RESET_ALL}] Exit                         ║
@@ -399,6 +400,9 @@ def menu():
                     #ddos()
             elif s == "5":
                 ipGeolocation()
+            elif s == "6":
+                os.system("git pull")
+                return menu()
             elif s == "0":
                 break
             else: 
