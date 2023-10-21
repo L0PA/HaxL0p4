@@ -44,5 +44,12 @@ if ! command -v msfconsole >/dev/null || ! command -v msfvenom >/dev/null; then
     sudo apt-get install metasploit-framework -y
 fi
 
+# Verifica ed installazione di figlet
+if ! command -v figlet >/dev/null; then
+    echo "Installing figlet..."
+    sudo apt-get install figlet -y
+fi
+
+
 # Esegui il programma Python
 python3 haxlopa.py
