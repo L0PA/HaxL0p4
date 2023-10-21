@@ -1,7 +1,7 @@
 # HaxL0p4
 HaxL0p4 Cyber Security Tool
 
-HaxL0p4 is a computer security tool that provides:
+HaxL0p4 is a hacking tool that provides:
 
 1) Malware and Listener Generation for Reverse Shell
 2) Scanning the network or specific targets
