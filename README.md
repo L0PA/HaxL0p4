@@ -11,3 +11,4 @@ HaxL0p4 is a hacking tool that provides:
 
 
 To launch and install the necessary requirements for HaxL0p4, run the command: "sudo bash install_haxl0p4.sh".
+(This tools is only for Debian distributions)
