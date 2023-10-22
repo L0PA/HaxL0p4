@@ -6,6 +6,19 @@ if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
     sudo apt-get install python3 python3-pip -y
 fi
 
+# Verifica ed installazione di pip
+if ! command -v pip3 >/dev/null; then
+    echo "Installing pip..."
+    sudo apt-get install python3-pip -y
+fi
+
+# Verifica ed installazione di tkinter
+if ! dpkg -l | grep -q "python3-tk"; then
+    echo "Installing tkinter..."
+    sudo apt-get install python3-tk -y
+fi
+
+
 # Elenco delle librerie Python richieste
 required_libraries=("os" "scapy" "requests" "json" "colorama")
 
