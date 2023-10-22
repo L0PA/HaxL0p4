@@ -50,5 +50,11 @@ if ! python3 -c "import nmap"; then
     sudo apt-get install python3-nmap -y
 fi
 
+# Verifica ed installazione di nslookup
+if ! command -v nslookup >/dev/null; then
+    echo "Installing nslookup..."
+    sudo apt-get install dnsutils -y
+fi
+
 # Esegui il programma Python
 python3 haxlopa.py
