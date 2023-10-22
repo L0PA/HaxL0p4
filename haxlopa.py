@@ -538,7 +538,7 @@ def menu():
             elif s == "5":
                 ipGeolocation()
             elif s == "6":
-                os.system("git pull")
+                os.system("git stash && git pull")
                 return menu()
             elif s == "0":
                 break
