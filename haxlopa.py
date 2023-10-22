@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-#import nmap
+import nmap
 #from scapy.all import * 
 import requests
 import json
@@ -18,6 +18,7 @@ import subprocess
 import time
 
 
+
 opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
 
 Remote_options = f"""
@@ -32,7 +33,7 @@ Remote_options = f"""
 Network_options = f"""
  ╔══════════════════════════════════╗
  ║ [1] Network arp-scan             ║
- ║ [2] Network port scanning        ║
+ ║ [2] Ip & Website Scanner         ║
  ╚══════════════════════════════════╝
  ╔══════════════════════════════════╗
  ║ [{Fore.RED}0{Style.RESET_ALL}] Back                         ║
@@ -262,20 +263,129 @@ def arp_scan():
     os.system("clear && figlet Hax-Scan")
     os.system("\n\narp-scan -l")
 
-    back = input(f"{Fore.RED}\nback? Y/N: {Style.RESET_ALL}")
+    back = input(f"{Fore.RED}\n\nBACK? Y/N: {Style.RESET_ALL}")
     if back.lower() == "y":
-        menu()
+        network()
     else:
         pass
 
-def port_scanning():
+
+def website_scanner():
     os.system("clear && figlet HaxL0p4")
-    nmScan = nmap.PortScanner()
-    scan_ip = input("\nIP: ")
-    scan_port = input("PORT (ES. 21-443): ")
-    print("\n\n")
 
     pass
+        
+
+def ip_scanner():
+    os.system("clear && figlet HaxL0p4")
+
+    scanner = nmap.PortScanner()
+
+    print("\n HaxL0p4 automation hacking tool")
+    print(" <-------------------------------------------------------------->")
+
+    ip_addr = input(' Ip address do you want to scan: ')
+    print(f" The ip you entered is: {Fore.RED}{ip_addr}{Style.RESET_ALL}")
+
+    resp = input(f"""\n Please enter the type os scan do you want to run
+ ╔══════════════════════════════════╗
+ ║ [1] SYN ACK Scan                 ║ 
+ ║ [2] UDP Scan                     ║
+ ║ [3] Complete Scan                ║
+ ╚══════════════════════════════════╝               
+ ╔═════════════════════════════════════╗
+ ║ [{Fore.RED}0{Style.RESET_ALL}]: Back                           ║
+ ║ [{Fore.RED}99{Style.RESET_ALL}]: Menù                          ║
+ ╚═════════════════════════════════════╝
+                 
+ {Fore.CYAN}HaxL0p4/Network/Scanner/IpScanner/options{Style.RESET_ALL} > """)
+
+    if resp == "1":
+        try:
+            print(" \nNmap Version: ", scanner.nmap_version())
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sS")
+            print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
+            print(scanner[ip_addr].all_protocols())
+            open_ports = scanner[ip_addr]['tcp'].keys()
+            formatted_ports = ', '.join(map(str, open_ports))
+            print(" Open Ports: ", formatted_ports)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    elif resp == "2":
+        try:
+            print(" \nNmap Version: ", scanner.nmap_version())
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sU")
+            print(f"udp: services: 1-1024\n Ip Status: up")
+            print(scanner[ip_addr].all_protocols())
+            open_ports = scanner[ip_addr]['udp'].keys()
+            formatted_ports = ', '.join(map(str, open_ports))
+            print(" Open Ports: ", formatted_ports)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    elif resp == "3":
+        try:
+            print(" \nNmap Version: ", scanner.nmap_version())
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O")
+            print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
+            print(scanner[ip_addr].all_protocols())
+            open_ports = scanner[ip_addr]['tcp'].keys()
+            formatted_ports = ', '.join(map(str, open_ports))
+            print(" Open Ports: ", formatted_ports)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    elif resp == "0":
+        return ip_scanner()
+    elif resp == "99":
+        return menu()
+    elif resp >= '4':
+        animazione_lettere(opzione_non_valida, 0.03)
+
+    loop = input("\n\nRepeat Scan? Y/N: ")
+    while True:
+        if loop.lower() == "y":
+            return ip_scanner()
+        elif loop.lower() == "n":
+            return menu()
+        else:
+            animazione_lettere(opzione_non_valida, 0.03)
+
+        
+
+def scanner():
+    os.system("clear && figlet HaxL0p4")
+    
+    netScan_options = f"""
+ ╔═════════════════════════════════════╗
+ ║ [1] IP Scanner                      ║ 
+ ║ [2] Website Scanner                 ║
+ ║ [3] prossimamente                   ║
+ ╚═════════════════════════════════════╝
+
+ ╔═════════════════════════════════════╗
+ ║ [{Fore.RED}0{Style.RESET_ALL}]: Back                           ║
+ ║ [{Fore.RED}99{Style.RESET_ALL}]: Menù                          ║
+ ╚═════════════════════════════════════╝
+"""
+    print(netScan_options)
+    s = input(f"{Fore.CYAN} HaxL0p4/network/IpScanner{Style.RESET_ALL} > ")
+
+    while True:
+        if s == "1":
+            ip_scanner()
+        elif s == "2":
+            #website_scanner()
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
+            scanner()
+        elif s == "3":
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
+            scanner()
+        elif s == "0":
+            return network()
+        elif s == "99":
+            return menu()
+        else: 
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
+            return scanner()
 
 
 def network():
@@ -288,7 +398,7 @@ def network():
         if choice == "1":
             arp_scan()
         elif choice == "2":
-            port_scanning()
+            scanner()
         elif choice == "0":
             return
         else:
@@ -411,7 +521,7 @@ def menu():
                 return menu()
     except KeyboardInterrupt:
         while True:
-            exit = input(f"\n{Fore.RED} \n [{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX} Chiudere il programma? Y/N: {Style.RESET_ALL}")
+            exit = input(f"\n{Fore.RED} \n [{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}Chiudere il programma? Y/N: {Style.RESET_ALL}")
             if exit.lower() == "y":
                 chiusura = f"{Fore.GREEN}\n [🐱]{Style.RESET_ALL} {Fore.RED}È stato un piacere :)... {Style.RESET_ALL}"
                 animazione_lettere(chiusura, 0.03)
