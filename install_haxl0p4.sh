@@ -18,6 +18,12 @@ if ! dpkg -l | grep -q "python3-tk"; then
     sudo apt-get install python3-tk -y
 fi
 
+# Verifica ed installazione di figlet
+if ! command -v figlet >/dev/null; then
+    echo "Installing figlet..."
+    sudo apt-get install figlet -y
+fi
+
 
 # Elenco delle librerie Python richieste
 required_libraries=("os" "scapy" "requests" "json" "colorama")
