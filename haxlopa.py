@@ -586,7 +586,8 @@ def menu():
                 ipGeolocation()
             elif s == "6":
                 os.system("git stash && git pull")
-                return menu()
+                animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
+                break
             elif s == "0":
                 break
             else: 
