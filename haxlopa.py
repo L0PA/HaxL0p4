@@ -302,20 +302,22 @@ def ip_scanner():
 
     if resp == "1":
         try:
-            print(" \nNmap Version: ", scanner.nmap_version())
+            print(" \n Nmap Version: ", scanner.nmap_version())
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS")
             print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
-            print(scanner[ip_addr].all_protocols())
+            #print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['tcp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f" An error occurred: {e}")
     elif resp == "2":
         try:
-            print(" \nNmap Version: ", scanner.nmap_version())
+            print(" \n Nmap Version: ", scanner.nmap_version())
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sU")
-            print(f"udp: services: 1-1024\n Ip Status: up")
+            print(f"udp: services: 1-1024\n Ip Status: {Fore.RED}up{Style.RESET_ALL}")
             print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['udp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
@@ -324,15 +326,24 @@ def ip_scanner():
             print(f"An error occurred: {e}")
     elif resp == "3":
         try:
-            print(" \nNmap Version: ", scanner.nmap_version())
+            print(" \n Nmap Version: ", scanner.nmap_version())
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O")
             print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
-            print(scanner[ip_addr].all_protocols())
+
+            # Verifica se è stato rilevato il sistema operativo
+            if 'osclass' in scanner[ip_addr]:
+                detected_os = scanner[ip_addr]['osclass'][0]['osfamily']
+                print(f"{Fore.LIGHTCYAN_EX} Operative System: {detected_os}{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.LIGHTCYAN_EX} Operative System: Information not available{Style.RESET_ALL}")
+
             open_ports = scanner[ip_addr]['tcp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
+        
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f" An error occurred: {e}")
     elif resp == "0":
         return ip_scanner()
     elif resp == "99":
@@ -340,7 +351,7 @@ def ip_scanner():
     elif resp >= '4':
         animazione_lettere(opzione_non_valida, 0.03)
 
-    loop = input("\n\nRepeat Scan? Y/N: ")
+    loop = input("\n\n Repeat Scan? Y/N: ")
     while True:
         if loop.lower() == "y":
             return ip_scanner()
@@ -349,7 +360,23 @@ def ip_scanner():
         else:
             animazione_lettere(opzione_non_valida, 0.03)
 
-        
+def ip_lookup():      
+
+    os.system("clear && figlet HaxL0p4")
+
+    ip = input(f"\n{Fore.CYAN}WEBSITE TARGET{Style.RESET_ALL} > ")
+    print("\n")
+    os.system(f" nslookup {ip}")
+
+    while True:
+        back = input(f"\n{Fore.RED}Back? Y/N: {Style.RESET_ALL}")
+        if back.lower() == "y":
+            network()
+        elif back.lower() == "n":
+            menu()
+        else:
+            animazione_lettere(opzione_non_valida, 0.03)
+
 
 def scanner():
     os.system("clear && figlet HaxL0p4")
@@ -358,7 +385,7 @@ def scanner():
  ╔═════════════════════════════════════╗
  ║ [1] IP Scanner                      ║ 
  ║ [2] Website Scanner                 ║
- ║ [3] prossimamente                   ║
+ ║ [3] Website Lookup                  ║
  ╚═════════════════════════════════════╝
 
  ╔═════════════════════════════════════╗
@@ -377,10 +404,9 @@ def scanner():
             animazione_lettere("\n"+opzione_non_valida, 0.03)
             scanner()
         elif s == "3":
-            animazione_lettere("\n"+opzione_non_valida, 0.03)
-            scanner()
+            ip_lookup()
         elif s == "0":
-            return network()
+            return scanner()
         elif s == "99":
             return menu()
         else: 
@@ -512,7 +538,7 @@ def menu():
             elif s == "5":
                 ipGeolocation()
             elif s == "6":
-                os.system("git stash && git pull")
+                os.system("git pull")
                 return menu()
             elif s == "0":
                 break
