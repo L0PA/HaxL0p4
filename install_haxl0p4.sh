@@ -1,41 +1,33 @@
 #!/bin/bash
 
+# Funzione per installare una libreria Python
+install_python_library() {
+    library=$1
+    if ! python3 -c "import $library"; then
+        echo "Installing $library..."
+        pip3 install $library
+    fi
+}
+
 # Verifica ed installazione di Python3 e pip
 if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
     echo "Installing Python3 and pip..."
     sudo apt-get install python3 python3-pip -y
 fi
 
-# Verifica ed installazione di pip
-if ! command -v pip3 >/dev/null; then
-    echo "Installing pip..."
-    sudo apt-get install python3-pip -y
-fi
+# Installa le librerie Python richieste
+required_libraries=("os" "nmap" "requests" "json" "colorama")
+
+for library in "${required_libraries[@]}"
+do
+    install_python_library $library
+done
 
 # Verifica ed installazione di tkinter
 if ! dpkg -l | grep -q "python3-tk"; then
     echo "Installing tkinter..."
     sudo apt-get install python3-tk -y
 fi
-
-# Verifica ed installazione di figlet
-if ! command -v figlet >/dev/null; then
-    echo "Installing figlet..."
-    sudo apt-get install figlet -y
-fi
-
-
-# Elenco delle librerie Python richieste
-required_libraries=("os" "scapy" "requests" "json" "colorama")
-
-# Verifica ed installazione delle librerie Python
-for library in "${required_libraries[@]}"
-do
-    if ! python3 -c "import $library"; then
-        echo "Installing $library..."
-        pip3 install $library
-    fi
-done
 
 # Verifica ed installazione di proxychains
 if ! command -v proxychains >/dev/null; then
@@ -47,6 +39,12 @@ fi
 if ! command -v arp-scan >/dev/null; then
     echo "Installing arp-scan..."
     sudo apt-get install arp-scan -y
+fi
+
+# Verifica ed installazione di figlet
+if ! command -v figlet >/dev/null; then
+    echo "Installing figlet..."
+    sudo apt-get install figlet -y
 fi
 
 # Verifica ed installazione di msfconsole e msfvenom
@@ -61,12 +59,6 @@ if ! command -v msfconsole >/dev/null || ! command -v msfvenom >/dev/null; then
     echo "deb http://apt.metasploit.com/ lucid main" | sudo tee /etc/apt/sources.list.d/metasploit-framework.list
     sudo apt-get update
     sudo apt-get install metasploit-framework -y
-fi
-
-# Verifica ed installazione di python-nmap
-if ! python3 -c "import nmap"; then
-    echo "Installing python-nmap..."
-    sudo apt-get install python3-nmap -y
 fi
 
 # Verifica ed installazione di nslookup
