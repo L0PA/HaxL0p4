@@ -330,7 +330,7 @@ def ip_scanner():
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sU")
             print(f"udp: services: 1-1024\n Ip Status: {Fore.RED}up{Style.RESET_ALL}")
-            print(scanner[ip_addr].all_protocols())
+            #print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['udp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
@@ -363,7 +363,7 @@ def ip_scanner():
     elif resp >= '4':
         animazione_lettere(opzione_non_valida, 0.03)
 
-    loop = input("\n\n Repeat Scan? Y/N: ")
+    loop = input("\n\n [❔] Repeat Scan? Y/N: ")
     while True:
         if loop.lower() == "y":
             return ip_scanner()
