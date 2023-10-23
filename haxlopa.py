@@ -251,14 +251,14 @@ def HaxL0p4_Ddos():
 
 # ========================== #
 
-parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
-parser.add_argument('--gui', action="store_true", help="Start HaxL0p4 GUI")
-args = parser.parse_args()
+#parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
+#parser.add_argument('--gui', action="store_true", help="Start HaxL0p4 GUI")
+#args = parser.parse_args()
 
-if args.gui:
-    haxlopa_gui()
-else:
-    pass
+#if args.gui:
+#    haxlopa_gui()
+#else:
+#    pass
 
 
 
