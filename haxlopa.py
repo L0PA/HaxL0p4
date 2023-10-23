@@ -125,7 +125,7 @@ def animazione_lettere(testo, ms):
 
 def HaxL0p4_Ddos():
     os.system("clear && figlet HaxL0p4-DDos")
-    animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}\n", 0.03)
+    animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}: {Fore.CYAN}https://github.com/L0PA{Style.RESET_ALL}\n", 0.03)
 
     def user_agent():
         global uagent
