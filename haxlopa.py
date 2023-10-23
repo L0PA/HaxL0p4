@@ -66,7 +66,7 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [3] Track Location               ║
+ ║ [3] Vuln Scan                    ║
  ║ [4] Hax-DDos Attack              ║
  ║ [5] IP Geolocation               ║
  ║                                  ║
