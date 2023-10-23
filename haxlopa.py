@@ -197,7 +197,7 @@ def HaxL0p4_Ddos():
         thr = input(f" Inserisci il valore turbo (default 135) {Fore.CYAN}>{Style.RESET_ALL} ") or 135
 
         print(f"\n\033[92m {host} porta: {str(port)} turbo: {str(thr)}\033[0m")
-        animazione_lettere("\033[94m Attendi...\033[0m", 0.03)
+        animazione_lettere("\033[94m Attendi...\033[0m\n\n", 0.03)
 
     # Inizializzazione delle code
     q = Queue()
