@@ -28,5 +28,5 @@ To launch and install the necessary requirements for HaxL0p4, run the command: "
 
 <h1 align="center">Example</h1>
 
-<img align="center" src="https://github.com/L0PA/HaxL0p4/blob/main/img/HaxL0p4_2.png">
+<img align="center" src="https://github.com/L0PA/HaxL0p4/blob/main/img/haxlopa3.png">
 
