@@ -70,8 +70,8 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [4] Hax-DDos Attack              ║
- ║ [5] IP Geolocation               ║
+ ║ [3] Hax-DDos Attack              ║
+ ║ [4] IP Geolocation               ║
  ║                                  ║
  ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
  ╚══════════════════════════════════╝
@@ -685,14 +685,14 @@ def menu():
                 RemoteAccess()
             elif s == "2":
                 network()
+         #   elif s == "3":
+          #      #vuln_scan()
+          #     animazione_lettere("\n"+opzione_non_valida,0.03)
+           #     menu()
             elif s == "3":
-                #vuln_scan()
-                animazione_lettere("\n"+opzione_non_valida,0.03)
-                menu()
-            elif s == "4":
                 while True:
                     HaxL0p4_Ddos()
-            elif s == "5":
+            elif s == "4":
                 ipGeolocation()
             elif s == "6":
                 os.system("git stash && git pull")
