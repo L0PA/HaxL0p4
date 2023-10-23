@@ -21,7 +21,7 @@ HaxL0p4 is a automations hacking tool that provides:
 
 To launch and install the necessary requirements for HaxL0p4:
       
-      sudo bash install_haxl0p4.sh
+    sudo bash install_haxl0p4.sh
 
 <br>
 (This tool is only for Debian and Ubuntu distributions)
