@@ -23,7 +23,10 @@ To launch and install the necessary requirements for HaxL0p4, run the command: "
 
 (This tool is only for Debian and Ubuntu distributions)
 
+<br>
+<br>
 
+<h1 align="center">Example</h1>
 
 <img align="center" src="https://github.com/L0PA/HaxL0p4/blob/main/img/HaxL0p4Mainmenu.png">
 
