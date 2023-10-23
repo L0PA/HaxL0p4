@@ -70,7 +70,6 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [3] Vulnerability Scan           ║
  ║ [4] Hax-DDos Attack              ║
  ║ [5] IP Geolocation               ║
  ║                                  ║
@@ -687,7 +686,9 @@ def menu():
             elif s == "2":
                 network()
             elif s == "3":
-                vuln_scan()
+                #vuln_scan()
+                animazione_lettere("\n"+opzione_non_valida,0.03)
+                menu()
             elif s == "4":
                 while True:
                     HaxL0p4_Ddos()
