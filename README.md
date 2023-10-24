@@ -29,6 +29,16 @@ To launch and install the necessary requirements for HaxL0p4:
 <br>
 <br>
 
+### [*] Installation
+
+For update the HaxL0p4 tool run the command:
+
+    python3 haxlopa.py --update
+
+
+<br>
+<br>
+
 <h1 align="center">Example</h1>
 
 <img style="margin:50px;" align="center" src="https://github.com/L0PA/HaxL0p4/blob/main/img/haxlopa3.png">
