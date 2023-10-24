@@ -19,10 +19,6 @@ import time
 import sys
 import string
 
-from bs4 import BeautifulSoup 
-import sys 
-from urllib.parse import urljoin 
-
 
 
 opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
@@ -70,7 +66,7 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [3] Hax-DDos Attack              ║
+ ║ [3] HaxL0p4-DDos Attack          ║
  ║ [4] IP Geolocation               ║
  ║                                  ║
  ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
