@@ -29,7 +29,7 @@ To launch and install the necessary requirements for HaxL0p4:
 <br>
 <br>
 
-### [*] Installation
+### [*] Update
 
 For update the HaxL0p4 tool run the command:
 
