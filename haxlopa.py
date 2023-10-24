@@ -234,7 +234,7 @@ parser.add_argument('--update', action="store_true", help="Update HaxL0p4 tool")
 args = parser.parse_args()
 
 if args.update:
-    os.system("git stash && git pull")
+    os.system("git pull")
     animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
     sys.exit()
 else:
