@@ -92,23 +92,6 @@ vuln_scan_options = f"""
 
 
 
-# ================================ GUI =============================== #
-
-def haxlopa_gui():
-    gui = Tk()
-    gui.geometry("1000x700")
-    gui.config(bg="#1b1b1b")
-    gui.resizable(False, False)
-
-    titolo = ttk.Label(text="HaxL0p4 GUI", font=("Arial", 30, "bold"), foreground="#fff", background="#1b1b1b")
-    titolo.pack(padx=10, pady=5)
-
-    gui.mainloop()
-
-# ================================================================== #
-
-
-
 def animazione_lettere(testo, ms):
     for lettera in testo:
         print(lettera, end='', flush=True)
@@ -246,14 +229,16 @@ def HaxL0p4_Ddos():
 
 # ========================== #
 
-#parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
-#parser.add_argument('--gui', action="store_true", help="Start HaxL0p4 GUI")
-#args = parser.parse_args()
+parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
+parser.add_argument('--update', action="store_true", help="Update HaxL0p4 tool")
+args = parser.parse_args()
 
-#if args.gui:
-#    haxlopa_gui()
-#else:
-#    pass
+if args.update:
+    os.system("git stash && git pull")
+    animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
+    sys.exit()
+else:
+    pass
 
 
 
