@@ -199,7 +199,7 @@ def HaxL0p4_Ddos():
         s.connect((host,int(port)))
         s.settimeout(1)
     except socket.error as e:
-        print("\033[91m Controlla l'indirizzo del server e la porta\033[0m")
+        animazione_lettere(f" {Fore.RED}[❗] Invalid ip address. Check the ip or the port and try again...")
         sys.exit()
 
     # Creazione e avvio dei thread
