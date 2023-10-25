@@ -92,6 +92,7 @@ import time, sys, socket, threading, logging, urllib.request, random
 def HaxL0p4_Ddos():
     os.system("clear && figlet HaxL0p4-DDos")
     animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}: {Fore.CYAN}https://github.com/L0PA{Style.RESET_ALL}\n", 0.03)
+    animazione_lettere(f"{Fore.RED) [💡] f.l0p4._ on Instagram: {Style.RESET_ALL}{Fore.YELLOW}https://www.instagram.com/f.l0pa._/{Style.RESET_ALL}",0.02)
     def user_agent():
         global uagent
         uagent=[]
