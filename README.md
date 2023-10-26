@@ -8,7 +8,7 @@ HaxL0p4 is a automations hacking tool that provides:
 
 1) Generating malware and listeners for Reverse Shell
 2) Network, IP addresses & Websites scanning
-4) Dos/DDos attack
+4) Dos attack
 5) Geolocation via IP address 
 
 
