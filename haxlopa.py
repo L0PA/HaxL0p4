@@ -343,13 +343,12 @@ def netcatListener():
                 command = f"sudo nc -lvp {port}"
                 os.system(command)
                 while True:
-                    exit = input(f'\n{Fore.BLUE}Close the revese shell?{Style.RESET_ALL} Y/N: ')
+                    exit = input(f'\n{Fore.BLUE} Return in the menù? {Style.RESET_ALL} Y/N: ')
                     if exit.lower() == "y":
-                        os.system("clear && figlet Hax-Remote")
-                        print(Remote_options)
+                        menu()
                         break
                     elif exit.lower() == "n":
-                        return
+                        network()
         else:
             opzione_non_valida = f"\n{Fore.RED} [💀] Opzione non valida... Inserire Y o N. {Style.RESET_ALL}"
             animazione_lettere(opzione_non_valida, 0.03)
