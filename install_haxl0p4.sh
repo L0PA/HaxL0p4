@@ -16,7 +16,7 @@ if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
 fi
 
 # Installa le librerie Python richieste
-required_libraries=("os" "nmap" "requests" "json" "colorama")
+required_libraries=("nmap" "requests" "colorama")
 
 for library in "${required_libraries[@]}"
 do
