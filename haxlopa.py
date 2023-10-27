@@ -75,7 +75,7 @@ opzioni_menu = f"""
  ╔══════════════════════════════════╗
  ║ [1] Remote Access                ║ 
  ║ [2] Network                      ║
- ║ [3] HaxL0p4-DDos Attack          ║
+ ║ [3] HaxL0p4-Dos Attack           ║
  ║ [4] IP Geolocation               ║
  ║                                  ║
  ║ [{Fore.CYAN}6{Style.RESET_ALL}] Update                       ║
