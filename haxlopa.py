@@ -230,7 +230,8 @@ args = parser.parse_args()
 
 if args.update:
     os.system("git stash && git pull")
-    animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
+    animazione_lettere(f"\n{Fore.RED}[❗] Restarting the tool...{Style.RESET_ALL}\n", 0.03)
+    os.system("python3 haxlopa.py")
     sys.exit()
 else:
     pass
@@ -659,7 +660,8 @@ def menu():
                 ipGeolocation()
             elif s == "6":
                 os.system("git stash && git pull")
-                animazione_lettere(f"\n{Fore.RED}[❗] Please restart the tool...", 0.03)
+                animazione_lettere(f"\n{Fore.RED}[❗] Restarting the tool...{Style.RESET_ALL}\n", 0.03)
+                os.system("python3 haxlopa.py")
                 break
             elif s == "0":
                 sys.exit()
