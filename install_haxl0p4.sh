@@ -16,6 +16,7 @@ if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
 fi
 
 pip3 install python-nmap
+sudo apt-get install netcat
 
 # Installa le librerie Python richieste
 required_libraries=("nmap" "requests" "colorama")
