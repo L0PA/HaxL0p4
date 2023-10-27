@@ -15,6 +15,8 @@ if ! command -v python3 >/dev/null || ! command -v pip3 >/dev/null; then
     sudo apt-get install python3 python3-pip -y
 fi
 
+pip3 install python-nmap
+
 # Installa le librerie Python richieste
 required_libraries=("nmap" "requests" "colorama")
 
