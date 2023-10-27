@@ -22,6 +22,16 @@ import string
 
 opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
 
+haxlopa = """
+  _   _            _     ___        _  _   
+ | | | | __ ___  _| |   / _ \ _ __ | || |  
+ | |_| |/ _` \ \/ / |  | | | | '_ \| || |_ 
+ |  _  | (_| |>  <| |__| |_| | |_) |__   _|
+ |_| |_|\__,_/_/\_\_____\___/| .__/   |_|  
+                            |_|          
+"""
+
+
 Remote_options = f"""
  ╔══════════════════════════════════╗
  ║ [1] Payload Creator              ║ 
@@ -90,7 +100,8 @@ from queue import Queue
 import time, sys, socket, threading, logging, urllib.request, random
 
 def HaxL0p4_Ddos():
-    os.system("clear && figlet HaxL0p4-DDos")
+    os.system("clear")
+    print(haxlopa)
     animazione_lettere(f"{Fore.RED}\n [😼] HaxL0p4-DDos by L0PA on Github{Style.RESET_ALL}: {Fore.CYAN}https://github.com/L0PA{Style.RESET_ALL}\n", 0.03)
     animazione_lettere(f"{Fore.CYAN} [💡] f.l0p4._ on Instagram: {Style.RESET_ALL}{Fore.YELLOW}https://www.instagram.com/f.l0pa._/{Style.RESET_ALL}\n", 0.02)
     def user_agent():
@@ -247,7 +258,8 @@ def createPayload(modulo, LHOST, LPORT, NAME, FORMAT):
 
 
 def setPayload():
-    os.system("clear && figlet HaxL0p4")
+    os.system("clear")
+    print(haxlopa)
 
     print(Moduli_Payload)
     
@@ -255,14 +267,16 @@ def setPayload():
         choice = input(f"\n{Fore.CYAN} HaxL0p4/CreatePayload {Style.RESET_ALL}> ")
 
         if choice not in ["1", "2", "3", "0"]:
-            os.system("clear && figlet HaxL0p4")
+            os.system("clear")
+            print(haxlopa)
             print(Moduli_Payload)
             opzione_non_valida = f" {Fore.RED}[💀] Opzione non valida. Si prega di inserire 'Y' o 'N'.{Style.RESET_ALL}\n"
             animazione_lettere(opzione_non_valida, 0.03)
             continue
 
         if choice == "0":
-            os.system("clear && figlet Hax-Remote")
+            os.system("clear")
+            print(haxlopa)
             print(f"""
  ╔══════════════════════════════════╗
  ║ [1] Payload Creator              ║ 
@@ -308,7 +322,8 @@ def setPayload():
             animazione_lettere("\n"+opzione_non_valida, 0.03)
 
 
-        os.system("clear && figlet HaxL0p4")
+        os.system("clear")
+        print(haxlopa)
         
         msf = input(f"\nAvviare {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
         if msf.lower() == "y":
@@ -326,7 +341,8 @@ def setPayload():
 
 def netcatListener():
     try:
-        os.system("clear && figlet HaxL0p4-NC")
+        os.system("clear")
+        print(haxlopa)
 
         while True:
             try:
@@ -358,13 +374,15 @@ def netcatListener():
             return netcatListener()
         
     except KeyboardInterrupt:
-        os.system("clear && figlet Hax-Remote")
+        os.system("clear")
+        print(haxlopa)
         print(Remote_options)
 
 
 
 def arp_scan():
-    os.system("clear && figlet Hax-Scan")
+    os.system("clear")
+    print(haxlopa)
     os.system("\n\narp-scan -l")
 
     back = input(f"{Fore.RED}\n\n[❔] Back? Y/N: {Style.RESET_ALL}")
@@ -376,7 +394,8 @@ def arp_scan():
 
 
 def ip_scanner():
-    os.system("clear && figlet HaxL0p4")
+    os.system("clear")
+    print(haxlopa)
 
     scanner = nmap.PortScanner()
 
@@ -461,7 +480,8 @@ def ip_scanner():
 
 def ip_lookup():      
 
-    os.system("clear && figlet HaxL0p4")
+    os.system("clear")
+    print(haxlopa)
 
     ip = input(f"\n{Fore.CYAN}WEBSITE TARGET{Style.RESET_ALL} > ")
     print("\n")
@@ -478,7 +498,8 @@ def ip_lookup():
 
 
 def scanner():
-    os.system("clear && figlet HaxL0p4")
+    os.system("clear")
+    print(haxlopa)
     
     netScan_options = f"""
  ╔═════════════════════════════════════╗
@@ -509,7 +530,8 @@ def scanner():
 
 
 def network():
-    os.system("clear && figlet Hax-Net")
+    os.system("clear")
+    print(haxlopa)
     print(Network_options)
     choice = input(f"\n{Fore.CYAN} HaxL0p4/network{Style.RESET_ALL} > ")
 
@@ -522,7 +544,8 @@ def network():
         elif choice == "0":
             menu()
         else:
-            os.system("clear && figlet Hax-Net")
+            os.system("clear")
+            print(haxlopa)
             print(Network_options)
             opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida...{Style.RESET_ALL}"
             animazione_lettere(opzione_non_valida, 0.03)
@@ -538,7 +561,8 @@ def get_public_ip():
 
 def ipGeolocation():
     while True:
-        os.system("clear && figlet HaxL0p4")
+        os.system("clear")
+        print(haxlopa)
 
         public_ip = get_public_ip()
         print(f"\nYour ip address: {Fore.RED}{public_ip}{Style.RESET_ALL}")
@@ -579,7 +603,8 @@ def ipGeolocation():
 
 def RemoteAccess() :
     try:
-        os.system("clear && figlet Hax-Remote ")
+        os.system("clear")
+        print(haxlopa)
         print(Remote_options)
 
         while True:   
@@ -593,7 +618,8 @@ def RemoteAccess() :
             elif choice == "back":
                 return
             else: 
-                os.system("clear && figlet Hax-Remote")
+                os.system("clear")
+                print(haxlopa)
                 print(Remote_options)
                 animazione_lettere(opzione_non_valida, 0.03)
     except KeyboardInterrupt:
@@ -614,7 +640,8 @@ def RemoteAccess() :
 def menu():
     try:
         while True:
-            os.system("clear && figlet HaxL0p4")
+            os.system("clear")
+            print(haxlopa)
             prossimamente = f" \n{Fore.RED} [!] Coming Soon...{Style.RESET_ALL}"
 
             print(opzioni_menu)
