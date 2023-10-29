@@ -44,11 +44,6 @@ if ! command -v arp-scan >/dev/null; then
     sudo apt-get install arp-scan -y
 fi
 
-# Verifica ed installazione di figlet
-if ! command -v figlet >/dev/null; then
-    echo "Installing figlet..."
-    sudo apt-get install figlet -y
-fi
 
 # Verifica ed installazione di msfconsole e msfvenom
 if ! command -v msfconsole >/dev/null || ! command -v msfvenom >/dev/null; then
