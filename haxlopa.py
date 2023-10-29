@@ -385,7 +385,7 @@ def netcatListener():
 def arp_scan():
     os.system("clear")
     print(haxlopa)
-    os.system("\n\narp-scan -l")
+    os.system("\n\nsudo arp-scan -l")
 
     back = input(f"{Fore.RED}\n\n[❔] Back? Y/N: {Style.RESET_ALL}")
     if back.lower() == "y":
