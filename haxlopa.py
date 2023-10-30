@@ -20,7 +20,7 @@ import sys
 import string
 
 
-opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
+opzione_non_valida = f"{Fore.RED} [💀] Invalid option... {Style.RESET_ALL}\n"
 
 haxlopa = """
   _   _            _     ___        _  _   
