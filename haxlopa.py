@@ -461,54 +461,22 @@ def ip_scanner():
             print(f"An error occurred: {e}")
     elif resp == "3":
         try:
-            print("\n Nmap Version: ", scanner.nmap_version())
+            print(" \n Nmap Version: ", scanner.nmap_version())
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O")
+            print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
 
-# Scansione completa con script, rilevamento OS e versioni dei servizi
-            scanner.scan(ip_addr, '1-65535', arguments="-v -sS -sC -A -O -T4")
-
-            print(f"tcp: method: syn, services: 1-65535\nIp Status: up")
-
-# Verifica se è stato rilevato il sistema operativo
+            # Verifica se è stato rilevato il sistema operativo
             if 'osclass' in scanner[ip_addr]:
                 detected_os = scanner[ip_addr]['osclass'][0]['osfamily']
-                print(f"{Fore.LIGHTCYAN_EX}Operative System: {detected_os}{Style.RESET_ALL}")
+                print(f"{Fore.LIGHTCYAN_EX} Operative System: {detected_os}{Style.RESET_ALL}")
             else:
-                print(f"{Fore.LIGHTCYAN_EX}Operative System: Information not available{Style.RESET_ALL}")
+                print(f"{Fore.LIGHTCYAN_EX} Operative System: Information not available{Style.RESET_ALL}")
 
-# Informazioni sull'host
-            host_info = scanner[ip_addr]['hostnames']
-            mac_address = scanner[ip_addr]['addresses']['mac']
-            uptime = scanner[ip_addr]['uptime']['lastboot']
-
-            print(f"Hostnames: {host_info}")
-            print(f"MAC Address: {mac_address}")
-            print(f"Uptime: {uptime} seconds")
-
-# Informazioni hardware
-            if 'osmatch' in scanner[ip_addr]:
-                vendor = scanner[ip_addr]['osmatch'][0]['osclass'][0]['vendor']
-                device_type = scanner[ip_addr]['osmatch'][0]['osclass'][0]['type']
-                print(f"Vendor: {vendor}")
-                print(f"Device Type: {device_type}")
-
-# Porte aperte
             open_ports = scanner[ip_addr]['tcp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
-            print(f"Open Ports: {formatted_ports}")
-
-# Servizi e versioni
-            for port in open_ports:
-                service_info = scanner[ip_addr]['tcp'][port]
-                print(f"Port {port}: {service_info['name']} {service_info['product']} {service_info['version']}")
-
-# Scansione degli script
-            for port in open_ports:
-                script_info = scanner[ip_addr]['tcp'][port]['script']
-            if script_info:
-                print(f"Scripts for Port {port}:")
-                for script_name, script_output in script_info.items():
-                    print(f"  {script_name}: {script_output}")
+            print(" Open Ports: ", formatted_ports)
+        
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "0":
