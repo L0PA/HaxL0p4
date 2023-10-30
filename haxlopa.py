@@ -240,7 +240,7 @@ else:
 
 def startNgrokServer(ngrokPORT):
 
-    command = f"gnome-terminal --geometry=80x24+1000+50 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
+    command = f"gnome-terminal --geometry=80x24+990+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
 
 
@@ -433,13 +433,19 @@ def ip_scanner():
 
     if resp == "1":
         try:
-            print(" \n Nmap Version: ", scanner.nmap_version())
+            print("\n Nmap Version: ", scanner.nmap_version())
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
-            scanner.scan(ip_addr, '1-1024', arguments="-v -sS")
-            print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
-            open_ports = scanner[ip_addr]['tcp'].keys()
-            formatted_ports = ', '.join(map(str, open_ports))
-            print(" Open Ports: ", formatted_ports)
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -A -T4 --host-timeout 10m")
+            print(f"tcp: method: syn, services: 1-1024")
+            ip_status = scanner[ip_addr].state()
+            print(f"Ip Status: {ip_status}")
+            if ip_status == "up":
+                open_ports = scanner[ip_addr]['tcp'].keys()
+                formatted_ports = ', '.join(map(str, open_ports))
+                print(" Open Ports: ", formatted_ports)
+                for port in open_ports:
+                    service = scanner[ip_addr]['tcp'][port]
+                    print(f"Porta {port}: {service['name']} {service['product']} {service['version']}")
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "2":
