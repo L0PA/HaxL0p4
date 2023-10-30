@@ -270,7 +270,7 @@ def setPayload():
             os.system("clear")
             print(haxlopa)
             print(Moduli_Payload)
-            opzione_non_valida = f" {Fore.RED}[💀] Opzione non valida. Si prega di inserire 'Y' o 'N'.{Style.RESET_ALL}\n"
+            opzione_non_valida = f" {Fore.RED}[💀] Opzione non valida. Si prega di inserire 1, 2 o 3'.{Style.RESET_ALL}\n"
             animazione_lettere(opzione_non_valida, 0.03)
             continue
 
