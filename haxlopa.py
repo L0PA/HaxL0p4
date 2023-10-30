@@ -438,14 +438,14 @@ def ip_scanner():
             scanner.scan(ip_addr, '1-1024', arguments="-v -sS -A -T4 --host-timeout 10m")
             print(f"tcp: method: syn, services: 1-1024")
             ip_status = scanner[ip_addr].state()
-            print(f"Ip Status: {ip_status}")
-            if ip_status == "up":
+            print(f" Ip Status: {ip_status}")
+            if ip_status == f"{Fore.GREEN} up{Style.RESET_ALL}":
                 open_ports = scanner[ip_addr]['tcp'].keys()
                 formatted_ports = ', '.join(map(str, open_ports))
                 print(" Open Ports: ", formatted_ports)
                 for port in open_ports:
                     service = scanner[ip_addr]['tcp'][port]
-                    print(f"Porta {port}: {service['name']} {service['product']} {service['version']}")
+                    print(f" Porta {Fore.RED}{port}{Style.RESET_ALL}: {service['name']} {service['product']} {service['version']}")
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "2":
