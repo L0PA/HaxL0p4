@@ -240,7 +240,7 @@ else:
 
 def startNgrokServer(ngrokPORT):
 
-    command = f"gnome-terminal --geometry=80x24+1000+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
+    command = f"gnome-terminal --geometry=80x24+990+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
 
 
