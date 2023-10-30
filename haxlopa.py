@@ -311,15 +311,10 @@ def setPayload():
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
-            if lanORwan.lower() == "y":
-                createPayload(modulo=1, LHOST=HOST, LPORT=ngrok_PORT, NAME=NAME)
-            elif lanORwan.lower() == "n":
-                createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
+            createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "2":
             if lanORwan.lower() == "y":
                 createPayload(modulo=2, LHOST=HOST, LPORT=ngrok_PORT, NAME=NAME)
-            elif lanORwan.lower() == "n":
-                createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "3":
             module = input(f"\n Module {Fore.CYAN}> {Style.RESET_ALL}")
             FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
