@@ -473,9 +473,13 @@ def ip_scanner():
             else:
                 print(f"{Fore.LIGHTCYAN_EX} Operative System: Information not available{Style.RESET_ALL}")
 
-            open_ports = scanner[ip_addr]['tcp'].keys()
-            formatted_ports = ', '.join(map(str, open_ports))
-            print(" Open Ports: ", formatted_ports)
+            if ip_status == "up":
+                open_ports = scanner[ip_addr]['tcp'].keys()
+                formatted_ports = ', '.join(map(str, open_ports))
+                print(" Open Ports: ", formatted_ports)
+                for port in open_ports:
+                    service = scanner[ip_addr]['tcp'][port]
+                    print(f" Porta {port}: {service['name']} {service['product']} {service['version']}")
         
         except Exception as e:
             print(f" An error occurred: {e}")
