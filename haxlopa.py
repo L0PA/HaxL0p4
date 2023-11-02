@@ -660,7 +660,7 @@ def menu():
     try:
         while True:
             os.system("clear")
-            print(haxlopa)
+            animazione_lettere(haxlopa, 0.01)
             prossimamente = f" \n{Fore.RED} [!] Coming Soon...{Style.RESET_ALL}"
 
             print(opzioni_menu)
