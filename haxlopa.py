@@ -461,10 +461,15 @@ def ip_scanner():
             print(f"An error occurred: {e}")
     elif resp == "3":
         try:
-            print(" \n Nmap Version: ", scanner.nmap_version())
+            print("\n Nmap Version: ", scanner.nmap_version())
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
-            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O -T4")
-            print("tcp: method: syn, services: 1-1024\n Ip Status: up")
+
+            # Esegui una scansione completa di tutte le porte (TCP e UDP)
+            scanner.scan(ip_addr, '1-65535', arguments="-p- -v -sS -sU -sC -A -O -T4")
+            print("Scansione completa: TCP e UDP")
+
+            ip_status = scanner[ip_addr].state()
+            print(f" Ip Status: {ip_status}")
 
             # Verifica se è stato rilevato il sistema operativo
             if 'osclass' in scanner[ip_addr]:
@@ -473,10 +478,15 @@ def ip_scanner():
             else:
                 print(f"{Fore.LIGHTCYAN_EX} Operative System: Information not available{Style.RESET_ALL}")
 
-            open_ports = scanner[ip_addr]['tcp'].keys()
-            formatted_ports = ', '.join(map(str, open_ports))
-            print(" Open Ports: ", formatted_ports)
-        
+            # Ottieni e stampa le porte aperte TCP
+            open_tcp_ports = scanner[ip_addr]['tcp'].keys()
+            formatted_tcp_ports = ', '.join(map(str, open_tcp_ports))
+            print(" Open TCP Ports: ", formatted_tcp_ports)
+
+            # Ottieni e stampa le porte aperte UDP
+            open_udp_ports = scanner[ip_addr]['udp'].keys()
+            formatted_udp_ports = ', '.join(map(str, open_udp_ports))
+            print(" Open UDP Ports: ", formatted_udp_ports)
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "0":
