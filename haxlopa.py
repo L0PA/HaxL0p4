@@ -28,7 +28,7 @@ haxlopa = """
  | |_| |/ _` \ \/ / |  | | | | '_ \| || |_ 
  |  _  | (_| |>  <| |__| |_| | |_) |__   _|
  |_| |_|\__,_/_/\_\_____\___/| .__/   |_|  
-                            |_|          
+                             |_|          
 """
 
 
@@ -660,7 +660,7 @@ def menu():
     try:
         while True:
             os.system("clear")
-            animazione_lettere(haxlopa, 0.01)
+            animazione_lettere(haxlopa, 0.005)
             prossimamente = f" \n{Fore.RED} [!] Coming Soon...{Style.RESET_ALL}"
 
             print(opzioni_menu)
