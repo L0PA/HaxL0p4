@@ -465,7 +465,7 @@ def ip_scanner():
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
 
             # Esegui una scansione completa di tutte le porte (TCP e UDP)
-            scanner.scan(ip_addr, '1-65535', arguments="-p- -v -sS -sU -sC -A -O -T4")
+            scanner.scan(ip_addr, '1-65535', arguments="-v -sS -sU -sC -A -O -T4")
             print("Scansione completa: TCP e UDP")
 
             ip_status = scanner[ip_addr].state()
