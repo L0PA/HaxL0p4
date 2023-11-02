@@ -20,7 +20,7 @@ import sys
 import string
 
 
-opzione_non_valida = f"{Fore.RED} [💀] Invalid option... {Style.RESET_ALL}\n"
+opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida... {Style.RESET_ALL}\n"
 
 haxlopa = """
   _   _            _     ___        _  _   
@@ -28,7 +28,7 @@ haxlopa = """
  | |_| |/ _` \ \/ / |  | | | | '_ \| || |_ 
  |  _  | (_| |>  <| |__| |_| | |_) |__   _|
  |_| |_|\__,_/_/\_\_____\___/| .__/   |_|  
-                             |_|          
+                            |_|          
 """
 
 
@@ -167,12 +167,12 @@ def HaxL0p4_Ddos():
         global port
         global thr
 
-        host = input(f"\n Enter the address of the server (host) {Fore.CYAN}>{Style.RESET_ALL} ")
-        port = input(f" Enter port number (default 80) {Fore.CYAN}>{Style.RESET_ALL} ") or 80
-        thr = input(f" Enter turbo value (default 135) {Fore.CYAN}>{Style.RESET_ALL} ") or 135
+        host = input(f"\n Inserisci l'indirizzo del server (host) {Fore.CYAN}>{Style.RESET_ALL} ")
+        port = input(f" Inserisci il numero della porta (default 80) {Fore.CYAN}>{Style.RESET_ALL}  ") or 80
+        thr = input(f" Inserisci il valore turbo (default 135) {Fore.CYAN}>{Style.RESET_ALL} ") or 135
 
-        print(f"\n\033[92m {host} port: {str(port)} turbo: {str(thr)}\033[0m")
-        animazione_lettere("\033[94m Wait...\033[0m\n\n", 0.03)
+        print(f"\n\033[92m {host} porta: {str(port)} turbo: {str(thr)}\033[0m")
+        animazione_lettere("\033[94m Attendi...\033[0m\n\n", 0.03)
 
     # Inizializzazione delle code
     q = Queue()
@@ -195,7 +195,7 @@ def HaxL0p4_Ddos():
         s.connect((host,int(port)))
         s.settimeout(1)
     except socket.error as e:
-        print("\033[91m Check server address and port\033[0m")
+        print("\033[91m Controlla l'indirizzo del server e la porta\033[0m")
         sys.exit()
 
     # Creazione e avvio dei thread
@@ -240,7 +240,7 @@ else:
 
 def startNgrokServer(ngrokPORT):
 
-    command = f"gnome-terminal --geometry=80x24+1000+50 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach' --sticky"
+    command = f"gnome-terminal --geometry=80x24+990+70 -- bash -c 'sudo ngrok tcp {ngrokPORT}; exec bach'"
     subprocess.run(command, shell=True)
 
 
@@ -270,7 +270,7 @@ def setPayload():
             os.system("clear")
             print(haxlopa)
             print(Moduli_Payload)
-            opzione_non_valida = f" {Fore.RED}[💀] Invalid option. Please enter 1, 2 or 3'.{Style.RESET_ALL}\n"
+            opzione_non_valida = f" {Fore.RED}[💀] Opzione non valida. Si prega di inserire 1, 2 o 3'.{Style.RESET_ALL}\n"
             animazione_lettere(opzione_non_valida, 0.03)
             continue
 
@@ -305,7 +305,7 @@ def setPayload():
                 LPORT = int(input(f" LPORT {Fore.CYAN}>{Style.RESET_ALL} "))
                 break
             except ValueError:
-                print(f"\n {Fore.RED} [!] Invalid format. Please enter an integer.\n{Style.RESET_ALL}")
+                print(f"\n {Fore.RED} [!] Formato non valido. Inserisci un numero intero.\n{Style.RESET_ALL}")
 
         
         NAME = input(f" \n NAME {Fore.CYAN}>{Style.RESET_ALL} ")
@@ -382,7 +382,7 @@ def netcatListener():
                     elif exit.lower() == "n":
                         network()
         else:
-            opzione_non_valida = f"\n{Fore.RED} [💀] Invalid option... Please enter Y or N. {Style.RESET_ALL}"
+            opzione_non_valida = f"\n{Fore.RED} [💀] Opzione non valida... Inserire Y o N. {Style.RESET_ALL}"
             animazione_lettere(opzione_non_valida, 0.03)
             return netcatListener()
         
@@ -412,7 +412,7 @@ def ip_scanner():
 
     scanner = nmap.PortScanner()
 
-    print("\n HaxL0p4 hacking tool")
+    print("\n HaxL0p4 automation hacking tool")
     print(" <-------------------------------------------------------------->")
 
     ip_addr = input(' Ip address do you want to scan: ')
@@ -445,7 +445,7 @@ def ip_scanner():
                 print(" Open Ports: ", formatted_ports)
                 for port in open_ports:
                     service = scanner[ip_addr]['tcp'][port]
-                    print(f" Port {port}: {service['name']} {service['product']} {Fore.YELLOW}{service['version']}{Style.RESET_ALL}")
+                    print(f" Port {port}: {service['name']} {service['product']} {service['version']}")
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "2":
@@ -457,14 +457,17 @@ def ip_scanner():
             open_ports = scanner[ip_addr]['udp'].keys()
             formatted_ports = ', '.join(map(str, open_ports))
             print(" Open Ports: ", formatted_ports)
+            for port in open_ports:
+                service = scanner[ip_addr]['udp'][port]
+                print(f"Port: {port}: {service['name']} {service['product']} {service['version']}")
         except Exception as e:
             print(f"An error occurred: {e}")
     elif resp == "3":
         try:
             print(" \n Nmap Version: ", scanner.nmap_version())
             animazione_lettere(f" {Fore.RED}[!] Scansione in corso...{Style.RESET_ALL}\n\n ", 0.03)
-            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O")
-            print(f"tcp: method: syn, services: 1-1024\n Ip Status: up")
+            scanner.scan(ip_addr, '1-1024', arguments="-v -sS -sC -A -O -T4")
+            print("tcp: method: syn, services: 1-1024\n Ip Status: up")
 
             # Verifica se è stato rilevato il sistema operativo
             if 'osclass' in scanner[ip_addr]:
@@ -566,7 +569,7 @@ def network():
             os.system("clear")
             print(haxlopa)
             print(Network_options)
-            opzione_non_valida = f"{Fore.RED} [💀] Invalid option...{Style.RESET_ALL}"
+            opzione_non_valida = f"{Fore.RED} [💀] Opzione non valida...{Style.RESET_ALL}"
             animazione_lettere(opzione_non_valida, 0.03)
             return network()
 
@@ -644,9 +647,9 @@ def RemoteAccess() :
     except KeyboardInterrupt:
 
         while True:
-            exit = input(f"\n{Fore.RED} \n [{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX} Close HaxL0p4? Y/N: {Style.RESET_ALL}")
+            exit = input(f"\n{Fore.RED} \n [{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX} Chiudere il programma? Y/N: {Style.RESET_ALL}")
             if exit.lower() == "y":
-                closing = f"{Fore.GREEN}\n [🐱]{Style.RESET_ALL} {Fore.RED}It was a pleasure :)... {Style.RESET_ALL}"
+                chiusura = f"{Fore.GREEN}\n [🐱]{Style.RESET_ALL} {Fore.RED}È stato un piacere :)... {Style.RESET_ALL}"
                 animazione_lettere(chiusura, 0.03)
                 break
             elif exit.lower() == "n":
@@ -660,7 +663,7 @@ def menu():
     try:
         while True:
             os.system("clear")
-            animazione_lettere(haxlopa, 0.005)
+            print(haxlopa)
             prossimamente = f" \n{Fore.RED} [!] Coming Soon...{Style.RESET_ALL}"
 
             print(opzioni_menu)
@@ -688,7 +691,7 @@ def menu():
                 return menu()
     except KeyboardInterrupt:
         while True:
-            exit = input(f"\n{Fore.RED} \n[{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}Close HaxL0p4? Y/N: {Style.RESET_ALL}")
+            exit = input(f"\n{Fore.RED} \n[{Style.RESET_ALL}*{Fore.RED}]{Style.RESET_ALL}{Fore.LIGHTCYAN_EX}Chiudere il programma? Y/N: {Style.RESET_ALL}")
             if exit.lower() == "y":
                 chiusura = f"{Fore.GREEN}\n[🐱]{Style.RESET_ALL} {Fore.RED}È stato un piacere :)... {Style.RESET_ALL}"
                 animazione_lettere(chiusura, 0.03)
