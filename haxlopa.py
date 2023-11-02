@@ -445,7 +445,7 @@ def ip_scanner():
                 print(" Open Ports: ", formatted_ports)
                 for port in open_ports:
                     service = scanner[ip_addr]['tcp'][port]
-                    print(f" Porta {port}: {service['name']} {service['product']} {service['version']}")
+                    print(f" Port {port}: {service['name']} {service['product']} {Fore.YELLOW}{service['version']}{Style.RESET_ALL}")
         except Exception as e:
             print(f" An error occurred: {e}")
     elif resp == "2":
