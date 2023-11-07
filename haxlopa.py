@@ -594,10 +594,10 @@ def ipGeolocation():
         print(haxlopa)
 
         public_ip = get_public_ip()
-        print(f"\nYour ip address: {Fore.RED}{public_ip}{Style.RESET_ALL}")
-        print(f'\nType "{Fore.RED}0{Style.RESET_ALL}" for return back')
+        print(f"\n Your ip address: {Fore.RED}{public_ip}{Style.RESET_ALL}")
+        print(f'\n Type "{Fore.RED}0{Style.RESET_ALL}" for return back')
 
-        ip_address = input("\nip: ")
+        ip_address = input("\n ip: ")
 
         if ip_address == "0":
             return
@@ -608,17 +608,17 @@ def ipGeolocation():
         result = result.split("(")[1].strip(")")
         result = json.loads(result)
 
-        print("\nGeolocation Information:")
-        print(f"Country Code: {result['country_code']}")
-        print(f"Country Name: {result['country_name']}")
-        print(f"City: {result['city']}")
-        print(f"Postal Code: {result['postal']}")
-        print(f"Latitude: {result['latitude']}")
-        print(f"Longitude: {result['longitude']}")
-        print(f"IPv4 Address: {result['IPv4']}")
-        print(f"State: {result['state']}")
+        print("\n Geolocation Information:")
+        print(f" Country Code: {Fore.YELLOW}{result['country_code']}{Style.RESET_ALL}")
+        print(f" Country Name: {Fore.YELLOW}{result['country_name']}{Style.RESET_ALL}")
+        print(f" City: {Fore.YELLOW}{result['city']}{Style.RESET_ALL}")
+        print(f" Postal Code: {Fore.RED}{result['postal']}{Style.RESET_ALL}")
+        print(f" Latitude: {Fore.CYAN}{result['latitude']}{Style.RESET_ALL}")
+        print(f" Longitude: {Fore.CYAN}{result['longitude']}{Style.RESET_ALL}")
+        print(f" IPv4 Address: {Fore.GREEN}{result['IPv4']}{Style.RESET_ALL}")
+        print(f" State: {Fore.GREEN}{result['state']}{Style.RESET_ALL}")
 
-        back = input(f"\n{Fore.RED}[❔] Back Y/N: {Style.RESET_ALL}")
+        back = input(f"\n{Fore.RED} [❔] Back Y/N: {Style.RESET_ALL}")
 
         if back.lower() == "y":
             return
